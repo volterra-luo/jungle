@@ -7,6 +7,6 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'jungle.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
-
+    url(r'^quiz/',include('appetizer.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
