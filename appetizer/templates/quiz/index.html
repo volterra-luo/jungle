@@ -16,5 +16,8 @@
       </form>
 
     </div> <!-- /container -->
-    {% url 'socialauth_begin' 'douban2' %}
+    <hr />
+    <h2>第三方登陆</h2>
+    {% load staticfiles %}
+    <a href="{% url 'socialauth_begin' 'douban2' %}"><img src="{%static 'img/douban/login_with_douban_32.png' %}"></a>
 {% endblock %}
