@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+path = os.path.expanduser(os.path.join(os.path.dirname(__file__), 'conf_social_auth.py'))
+
+if os.path.exists(path):
+    with open(path) as conf:
+        exec conf.read()
+else:
+    raise RuntimeError('configuration not found at %s' % path)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -29,6 +36,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
+    'social_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
