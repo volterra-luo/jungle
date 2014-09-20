@@ -10,4 +10,5 @@ urlpatterns = patterns('',
     url(r'^socialauth_douban/', include('social_auth.urls')),
     url(r'^quiz/',include('appetizer.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^rest/',include('restframe.urls')),
 )
