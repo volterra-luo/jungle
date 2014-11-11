@@ -16,7 +16,7 @@ path = os.path.expanduser(os.path.join(os.path.dirname(__file__), 'conf_social_a
 
 if os.path.exists(path):
     with open(path) as conf:
-        exec conf.read()
+        exec(conf.read())   # exec conf.read() in Python2.x
 else:
     raise RuntimeError('configuration not found at %s' % path)
 
@@ -36,7 +36,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'social_auth',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,9 +44,19 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'appetizer',
     'rest_framework',
-    'restframe',
+    'social.apps.django_app.default',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'social.backends.douban.DoubanOAuth2',               
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'social.apps.django_app.context_processors.backends',
+    'social.apps.django_app.context_processors.login_redirect',
+)
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -111,3 +120,4 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+
