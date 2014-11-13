@@ -12,4 +12,5 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rest/',include('restframe.urls')),
     url(r'^socialauth_douban/', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login'),
 )

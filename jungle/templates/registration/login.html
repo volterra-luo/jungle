@@ -1,8 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+  
   <div class="uk-grid">
-    
+    <div class="uk-width-1-1">
+      <h1 class="uk-heading-small">Karel机器人</h1>
+      <p class="uk-text-large">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+    </div>
+
     <div class="uk-width-1-2">
       <div class="container">
 
@@ -21,9 +26,11 @@
     </div>
     
     <div class="uk-width-1-2">
-      <h2>第三方登陆</h2>
-      {% load staticfiles %}
-        <a href="{% url 'social:begin' 'douban-oauth2' %}"><img src="{%static 'img/douban/login_with_douban_32.png' %}"></a>  
+      <div class="container">
+        <h2>第三方登陆</h2>
+        {% load staticfiles %}
+          <a href="{% url 'social:begin' 'douban-oauth2' %}"><img src="{% static 'img/douban/login_with_douban_32.png' %}"></a>  
+      </div>
     </div>
   </div>
     
