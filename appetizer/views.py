@@ -20,6 +20,6 @@ def account_create_view(request, **args):
 	else:
 		form = UserCreationForm()
 
-	username = "张三丰"
+	username = None
 	local_args = { 'form': form, 'username': username }
 	return render(request, args.get('template'), local_args )
