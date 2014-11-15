@@ -6,11 +6,12 @@
 
   	<div class="uk-width-1-2">
       <div class="container">
-      	<form class="form-signin" role="form">
+      	<form action="/" method="post"
+      			class="form-signin" role="form">
       		{% csrf_token %}
         	<div class="form-group">
     			<label for="username">用户名</label>
-    			<input type="email" class="form-control" id="username" name="username" placeholder="张三丰">
+    			<input type="email" class="form-control" id="username" name="username" placeholder="张三丰" value="{{ username }}">
   			</div>
   			<div class="form-group">
     			<label for="password1">密 码</label>
