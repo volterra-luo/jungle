@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -18,4 +20,6 @@ def account_create_view(request, **args):
 	else:
 		form = UserCreationForm()
 
-	return render(request, args.get('template'), {'form':form})
+	username = "张三丰"
+	local_args = { 'form': form, 'username': username }
+	return render(request, args.get('template'), local_args )
