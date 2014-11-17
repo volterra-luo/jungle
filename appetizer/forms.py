@@ -22,6 +22,51 @@ from django.contrib.sites.shortcuts import get_current_site
 
 UNMASKED_DIGITS_TO_SHOW = 6
 
+def mask_password(password):
+    shown = password[:UNMASKED_DIGITS_TO_SHOW]
+    masked = "*" * max(len(password) - UNMASKED_DIGITS_TO_SHOW, 0)
+    return shown + masked
+
+
+class ReadOnlyPasswordHashWidget(forms.Widget):
+    def render(self, name, value, attrs):
+        encoded = value
+        final_attrs = self.build_attrs(attrs)
+
+        if not encoded or encoded.startswith(UNUSABLE_PASSWORD_PREFIX):
+            summary = mark_safe("<strong>%s</strong>" % ugettext("No password set."))
+        else:
+            try:
+                hasher = identify_hasher(encoded)
+            except ValueError:
+                summary = mark_safe("<strong>%s</strong>" % ugettext(
+                    "Invalid password format or unknown hashing algorithm."))
+            else:
+                summary = format_html_join('',
+                                           "<strong>{0}</strong>: {1} ",
+                                           ((ugettext(key), value)
+                                            for key, value in hasher.safe_summary(encoded).items())
+                                           )
+
+        return format_html("<div{0}>{1}</div>", flatatt(final_attrs), summary)
+
+
+class ReadOnlyPasswordHashField(forms.Field):
+    widget = ReadOnlyPasswordHashWidget
+
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault("required", False)
+        super(ReadOnlyPasswordHashField, self).__init__(*args, **kwargs)
+
+    def bound_data(self, data, initial):
+        # Always return initial because the widget doesn't
+        # render an input field.
+        return initial
+
+    def _has_changed(self, initial, data):
+        return False
+
+
 class UserCreationForm(forms.ModelForm):
     """
     A form that creates a user, with no privileges, from the given username and
@@ -77,3 +122,8 @@ class UserCreationForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class UserProfileForm(forms.Form):
+    """User profile form. """
+    pass
