@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from collections import OrderedDict
@@ -126,4 +127,17 @@ class UserCreationForm(forms.ModelForm):
 
 class UserProfileForm(forms.Form):
     """User profile form. """
-    pass
+
+    tshirt = forms.ChoiceField(
+        required  = True,
+        label     = "T-Shirt Size",
+        help_text = "",
+        choices   = [
+            ('S', 'S (small)'),
+            ('M', 'M (medium)'),
+            ('L', 'L (large)'),
+            ('XL', 'XL (extra large)'),
+            ('XXL', 'XXL (double extra large)'),
+        ],
+        initial   = 'M',
+    )
