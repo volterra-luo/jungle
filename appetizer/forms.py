@@ -141,3 +141,30 @@ class UserProfileForm(forms.Form):
         ],
         initial   = 'M',
     )
+
+class RegisterForm(forms.Form):
+    
+    error_css_class = 'error'
+    required_css_class = 'required'
+    
+    Course_A = 'C1'
+    Course_B = 'C2'
+    Course_C = 'C3'
+    KID_COURSE_CHOICES = (
+        ( u'编程', (
+                        (Course_A, u'Karel机器人'),
+                        (Course_C, u'Python编程入门'),
+                    )
+         ),
+        ( u'3D作图',(
+                        (Course_B, u'Plasm 3D作图'),
+                    )
+        ),
+    )
+    student_name = forms.CharField(label=u'学生姓名',max_length=100)
+    age = forms.IntegerField(label=u'年龄',initial='10')
+    parent_name = forms.CharField(label=u'家长姓名')
+    phone = forms.CharField(label=u'联系电话')
+    courses = forms.MultipleChoiceField(label=u'希望学习的课程',choices=KID_COURSE_CHOICES,initial=['C1','C2'])
+    mugshot = forms.ImageField(label=u'头像')
+    
