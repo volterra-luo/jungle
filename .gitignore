@@ -1,5 +1,12 @@
 *.sqlite3
 
+#############
+#virtualenv
+#############
+Lib/*
+Include/*
+Scripts/*
+
 #################
 ## Eclipse
 #################
