@@ -6,6 +6,9 @@
 Lib/*
 Include/*
 Scripts/*
+include/*
+lib/*
+local/*
 
 #################
 ## Eclipse
