@@ -9,6 +9,7 @@ Scripts/*
 include/*
 lib/*
 local/*
+static/*
 
 #################
 ## Eclipse
