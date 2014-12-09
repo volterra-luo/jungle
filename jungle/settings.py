@@ -27,7 +27,7 @@ else:
 SECRET_KEY = 'v4fb9l(9)d6cm*t$v#lsq%w=eo@rb=do_4$u0sl&!ur0!$o8id'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True 
 
 TEMPLATE_DEBUG = True
 
