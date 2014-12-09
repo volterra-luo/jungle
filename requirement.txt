@@ -1,6 +1,7 @@
 Django==1.7
 Markdown==2.5.2
 PyJWT==0.3.1
+coverage==3.7.1
 defusedxml==0.4.1
 django-filter==0.9.1
 djangorestframework==3.0.0
@@ -13,4 +14,5 @@ python-social-auth==0.2.1
 python3-openid==3.0.5
 requests==2.5.0
 requests-oauthlib==0.3.1
+setproctitle==1.1.8
 six==1.8.0
