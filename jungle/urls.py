@@ -4,10 +4,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',	
-    # Examples:
-    # url(r'^$', 'jungle.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-    # url(r'^socialauth_douban/', include('social_auth.urls')),
     url(r'^quiz/',include('appetizer.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^rest/',include('restframe.urls')),
@@ -15,4 +11,8 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/register/$', 'appetizer.views.account_create_view', 
     	{'template':'registration/register.html'}, name='create', ),
+    url(r'^$', 'jungle.views.home', name='home'),
+    # Examples:
+    # url(r'^blog/', include('blog.urls')),
+    # url(r'^socialauth_douban/', include('social_auth.urls')),
 )
