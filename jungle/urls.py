@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^accounts/register/$', 'appetizer.views.account_create_view', 
     	{'template':'registration/register.html'}, name='create', ),
+    url(r'^credential/', include('credential.urls', namespace='certify')),
     url(r'^$', 'jungle.views.home', name='home'),
     # Examples:
     # url(r'^blog/', include('blog.urls')),
