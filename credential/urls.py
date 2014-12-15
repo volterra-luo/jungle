@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url, include
 
-from appetizer import views
+from credential import views
 
 urlpatterns = patterns('',
     # ex: /credential/00c4ff60bb25ab37d6c32507ded42d86

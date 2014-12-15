@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     'appetizer',
     'rest_framework',
     'social.apps.django_app.default',
+    'credential',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -114,6 +115,9 @@ STATIC_ROOT = '/srv/jungle/www/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/srv/jungle/www/media/'
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
