@@ -12,7 +12,10 @@
     <title> {% block title %} Karel {% endblock %} </title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{% static 'bootstrap/3.2.0/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'bootstrap/3.3.1/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="{% static 'bootstrap/3.3.1/css/bootstrap-theme.min.css' %}">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -44,7 +47,7 @@
           </button>
           <a class="navbar-brand" href="/">Karel机器人</a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
+        <!-- <div id="navbar" class="navbar-collapse collapse">
           <form class="navbar-form navbar-right" role="form">
             <div class="form-group">
               <input type="text" placeholder="Email" class="form-control">
@@ -54,7 +57,14 @@
             </div>
             <button type="submit" class="btn btn-success">Sign in</button>
           </form>
-        </div><!--/.navbar-collapse -->
+
+        </div><!--/.navbar-collapse --> -->
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="list-inline navbar-right">
+            <li><a href="{% url 'login' %}"><button class="btn btn-success">登陆</button></a></li>
+            <li><a href="{% url 'create' %}"><button class="btn btn-primary">注册</button></a></li>
+          </ul>
+        </div>
       </div>
     </nav>
 
@@ -92,23 +102,24 @@
 
       {% endblock %}
 
-      <hr>
-
-      <footer>
-        <p>&copy; Computing-works 2014</p>
-      </footer>
     </div> <!-- /container -->
+    
+    <hr>
+
+    <footer>
+      <p class="text-center">&copy; Computing-works 2015 | </p>
+    </footer>
     
 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <!-- jQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
      <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'uikit/2.12.0/js/uikit.min.js' %}"></script>
-    <script src="{% static 'bootstrap/3.2.0/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'bootstrap/3.3.1/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'fuelux/3.0.0/js/fuelux.min.js' %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'jungle/js/ie10-viewport-bug-workaround.js' %}"></script>
