@@ -7,7 +7,7 @@ class Credential(models.Model):
 	course = models.CharField('Course Name', max_length=100, default='Karel the Robot')
 	level = models.IntegerField('Skill Level', default=1)
 	issue_date = models.DateField('Issue Date')
-	certify = models.ImageField()
+	#certify = models.ImageField()
 
 	def __str__(self):
 		return self.user.username + self.course
