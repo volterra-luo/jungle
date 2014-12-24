@@ -5,7 +5,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',	
     url(r'^quiz/',include('appetizer.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^dimension/admin/', include(admin.site.urls)),
     url(r'^rest/',include('restframe.urls')),
     url(r'^socialauth_douban/', include('social.apps.django_app.urls', namespace='social')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
