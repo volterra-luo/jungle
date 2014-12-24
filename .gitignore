@@ -11,6 +11,7 @@ lib/*
 local/*
 static/*
 .python-version
+gunicorn*.conf.py
 
 #################
 ## Eclipse
