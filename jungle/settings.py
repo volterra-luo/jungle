@@ -109,7 +109,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'http://static.nclab.com.cn/static/'
 STATIC_ROOT = '/srv/jungle/www/static/'
 
 STATICFILES_DIRS = (
