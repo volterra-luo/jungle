@@ -12,6 +12,7 @@ local/*
 static/*
 .python-version
 gunicorn*.conf.py
+jungle/settings.py
 
 #################
 ## Eclipse
