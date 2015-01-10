@@ -1,4 +1,6 @@
 *.sqlite3
+*settings.py
+*conf_social_auth.py
 
 #############
 #virtualenv
@@ -12,7 +14,6 @@ local/*
 static/*
 .python-version
 gunicorn*.conf.py
-jungle/settings.py
 
 #################
 ## Eclipse
