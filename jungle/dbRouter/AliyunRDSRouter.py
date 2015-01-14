@@ -8,16 +8,16 @@ class AliyunRDSRouter(object):
         Attempts to read auth models go to auth_db.
         """
         if model._meta.app_label == 'auth':
-            return 'auth_db'
-        return None
+            return 'karel_dev'
+        return 'karel_dev'
 
     def db_for_write(self, model, **hints):
         """
         Attempts to write auth models go to auth_db.
         """
         if model._meta.app_label == 'auth':
-            return 'auth_db'
-        return None
+            return 'karel_dev'
+        return 'karel_dev'
 
     def allow_relation(self, obj1, obj2, **hints):
         """
