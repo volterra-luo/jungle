@@ -39,9 +39,9 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <div id="container">
+          <div id="spinning-container">
             <img src="http://images.nclab.com.cn/img/karel-alone.png" style="margin:10px 10px 0 0;" width="44" height="44" alt="Karel">
-          </div>
+          </div>  
         </div>
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -116,13 +116,15 @@
       <p class="text-center">&copy; Computing-works 2015 | <img style="width: 120px; height: 120px" src="http://images.nclab.com.cn/img/karel-qr.jpg"/></p>
     </footer>
     
-
+    $( "#spinning-container" ).click(function() {
+            console.log( "You're on the logo!" );
+          });
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{% static 'jquery/1.11.2/jquery.min.js' %}"></script>
      <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'uikit/2.12.0/js/uikit.min.js' %}"></script>
     <script src="{% static 'bootstrap/3.3.1/js/bootstrap.min.js' %}"></script>
