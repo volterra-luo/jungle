@@ -21,8 +21,6 @@ $( document ).ready( function() {
             //setInterval(spin, Math.ceil(random(10000)));
           }
      	);
-
-    //setInterval(spin, Math.ceil(random(10000)));
     
     function spin() {
         node.css('transform', 'rotate(' + random(360) + 'deg)');
