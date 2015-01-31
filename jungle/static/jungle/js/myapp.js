@@ -12,7 +12,7 @@ $( document ).ready( function() {
           function() {
             node.fadeTo(250, 1)
                 .css('zIndex', 1001)
-                .css('transform', 'rotate(0deg)');
+                .css('transform', 'rotate(' + random(360) + 'deg)');
           },
           function() {
             node.fadeTo(250, .6).css('zIndex', 1000);
@@ -23,7 +23,7 @@ $( document ).ready( function() {
      	);
     
     function spin() {
-        node.css('transform', 'rotate(' + random(360) + 'deg)');
+        node.css('transform', 'rotate(0deg)');
     }
 
 	// node.on('mouseover', function(event){
