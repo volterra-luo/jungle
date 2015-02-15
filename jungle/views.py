@@ -9,5 +9,11 @@ _digit = set(map(chr, range(48, 58)))
 _upper = set(map(chr, range(65, 91)))
 _lower = set(map(chr, range(97,123)))
 
+def _render_template(request,page,**args):
+	local_args = {'BASE_TMP':'base/v0.1/base.html'}
+	args.update(local_args)
+	return render(request,page,args)
+
 def home(request):
-	return render(request, 'jungle/index.html')
+	local_args = {}
+	return _render_template(request, 'jungle/index.html', **local_args)
