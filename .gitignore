@@ -1,4 +1,4 @@
-*.python-version
+.python-version
 *.sqlite3
 *settings.py
 *_social_auth.py
@@ -16,7 +16,6 @@ include/*
 lib/*
 local/*
 static/*
-.python-version
 gunicorn*.conf.py
 
 #################
