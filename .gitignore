@@ -1,7 +1,7 @@
 *.python-version
 *.sqlite3
 *settings.py
-*social_auth.py
+*/*_social_auth.py
 fabfile.py
 *.conf
 
