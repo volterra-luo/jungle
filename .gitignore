@@ -1,6 +1,9 @@
+*.python-version
 *.sqlite3
 *settings.py
-*conf_social_auth.py
+*social_auth.py
+fabfile.py
+*.conf
 
 #############
 #virtualenv
@@ -18,7 +21,6 @@ gunicorn*.conf.py
 #################
 ## Eclipse
 #################
-
 *.pydevproject
 .project
 .metadata
