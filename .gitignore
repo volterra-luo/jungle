@@ -1,4 +1,4 @@
-.python-version
+#.python-version
 *.sqlite3
 *settings.py
 *_social_auth.py
