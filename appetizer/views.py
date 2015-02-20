@@ -21,5 +21,5 @@ def account_create_view(request, **args):
 		form = UserCreationForm()
 
 	username = None
-	local_args = { 'form': form, 'username': username }
+	local_args = { 'form': form, 'username': username, 'BASE_TMP': 'base/v0.1/base.html' }
 	return render(request, args.get('template'), local_args )
