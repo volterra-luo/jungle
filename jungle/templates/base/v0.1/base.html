@@ -68,8 +68,8 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="list-inline navbar-right">
             {% if not user.is_authenticated %}
-              <li><a href="{% url 'login' %}" class="btn btn-success" role="button">登陆</a></li>
-              <li><a href="{% url 'create' %}" class="btn btn-primary" role="button">注册</a></li>
+              <li><a href="{% url 'muster:login' %}" class="btn btn-success" role="button">登陆</a></li>
+              <li><a href="{% url 'muster:create' %}" class="btn btn-primary" role="button">注册</a></li>
             {% else %}
               <li> <p class="bg-info">欢迎: {{ user.username }} </p></li>
               {% if user.is_staff and user.is_superuser %}
