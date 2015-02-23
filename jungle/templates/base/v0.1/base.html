@@ -75,7 +75,7 @@
               {% if user.is_staff and user.is_superuser %}
                 <li> <a href="/dimension/admin/" class="btn btn-primary" role="button">  管理员 </a></li>
               {% endif %}
-                <li><a href="{% url 'logout' %}" class="btn btn-success" role="button">登出</a></li>
+                <li><a href="{% url 'muster:logout' %}" class="btn btn-success" role="button">登出</a></li>
             {% endif %}
           </ul>
         </div>
