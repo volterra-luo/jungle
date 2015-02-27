@@ -2,36 +2,38 @@
 
 {% block content %}
   
-  <div class="uk-grid">
-
-  	<div class="uk-width-1-2">
-      <div class="container">
-      	<form action="/" method="post"
+<div class="uk-grid">
+      <div class="uk-width-1-2">
+        <div class="container">
+          <form action="/" method="post"
       			class="form-signin" role="form">
-      		{% csrf_token %}
-        	<div class="form-group">
-    			<label for="username">用户名</label>
-    			<input type="email" class="form-control" id="username" name="username" placeholder="张三丰" {% if username %} value="{{ username }}" {% endif %}>
-  			</div>
-  			<div class="form-group">
-    			<label for="password1">密 码</label>
-    			<input type="password" class="form-control" id"password1" name="password1">
-  			</div>
-  			<div class="form-group">
-    			<label for="password2">确认密码</label>
-    			<input type="password" class="form-control" id="password2">
-  			</div>
-  			<div class="checkbox">
-    			<label>
-      				<input type="checkbox"> 已认真阅读并同意<a href="">使用条款</a>
-    			</label>
-  			</div>
-                    <table>{{ form.as_table }}</table>
-  			<button class="btn btn-lg btn-primary btn-block" type="submit">注 册</button>
-  		</form>
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="{{ form.username.id_for_label }}">用户名</label>
+              <input type="text" class="form-control" id="{{ form.username.id_for_label }}" name="username" placeholder="张三丰" {% if username %} value="{{ form.username.value }}" {% endif %}>
+            </div>
+            <div class="form-group">
+              <label for="{{ form.password.id_for_label }}">密 码</label>
+              <input type="password" class="form-control" id"{{ form.password.id_for_label }}" name="password">
+            </div>
+            <div class="form-group">
+              <label for="{{ form.password_again.id_for_label }}">确认密码</label>
+              <input type="password" class="form-control" id="{{ form.password_again.id_for_label }}">
+            </div>
+            <div class="form-group">
+              {{ form.captcha.errors }}
+              <label for="{{ form.captcha.id_for_label }}">{{ form.captcha.label }}</label>
+              {{ form.captcha }}
+            </div>
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> 已认真阅读并同意<a href="">使用条款</a>
+              </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">注 册</button>
+          </form>
       </div> <!-- /container -->
     </div>
-
     <div class="uk-width-1-1">
       <div class="container">
         <a href="{% url 'muster:login' %}"> 直接登陆 </a> 
