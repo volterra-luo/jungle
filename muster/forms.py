@@ -72,75 +72,82 @@ class UserCreationForm(forms.ModelForm):
 
 class RegistrationForm(forms.Form):
 	"""Form for creating new users. """
-	username = forms.EmailField(
+	username = forms.CharField(
 		required = True,
-		label = "E-mail",
+		label = u'用户名',
 		max_length = 100,
-		help_text = "This will be your login name.",
+		help_text = u'这将是您的登录名',
 	)
 
-	username_again = forms.EmailField(
-		required = True,
-		label = "E-mail (again)",
-		help_text = "Make sure that this is a valid E-mail address.",
-	)
+	# username = forms.EmailField(
+	# 	required = True,
+	# 	label = "E-mail",
+	# 	max_length = 100,
+	# 	help_text = "This will be your login name.",
+	# )
+
+	# username_again = forms.EmailField(
+	# 	required = True,
+	# 	label = "E-mail (again)",
+	# 	help_text = "Make sure that this is a valid E-mail address.",
+	# )
 
 	password = forms.CharField(
 		required = True,
-		label = "Password",
+		label = u'密码',
 		widget = forms.PasswordInput(),
-		help_text = "Use lower and upper case letters, numbers, etc.",
+		help_text = u'请使用大写字母，小写字母，数字等',
 	)
 
 	password_again = forms.CharField(
 		required = True,
-		label = "Password (again)",
+		label = u'密码确认',
 		widget = forms.PasswordInput(),
 	)
 
-	first_name = forms.CharField(
-		required = True,
-		label = "First Name",
-		help_text = "Enter your first name + middle name.",
-	)
+	# first_name = forms.CharField(
+	# 	required = True,
+	# 	label = "First Name",
+	# 	help_text = "Enter your first name + middle name.",
+	# )
 
-	def clean_first_name(self):
-		first_name = self.cleaned_data['first_name']
-		all_symbols = set(first_name)
-		first_symbol = set(first_name[0])
+	# def clean_first_name(self):
+	# 	first_name = self.cleaned_data['first_name']
+	# 	all_symbols = set(first_name)
+	# 	first_symbol = set(first_name[0])
 
-		if ( first_symbol & _lower):
-			raise forms.ValidationError('First letter must be Uppercase.')
-		elif not ( all_symbols & _lower ):
-			raise forms.ValidationError('Only CAPITALS are not allowed.')
-		elif ( all_symbols & _digit ):
-			raise forms.ValidationError('Digits are not allowed in first name.')
+	# 	if ( first_symbol & _lower):
+	# 		raise forms.ValidationError('First letter must be Uppercase.')
+	# 	elif not ( all_symbols & _lower ):
+	# 		raise forms.ValidationError('Only CAPITALS are not allowed.')
+	# 	elif ( all_symbols & _digit ):
+	# 		raise forms.ValidationError('Digits are not allowed in first name.')
 
-		return first_name
+	# 	return first_name
 
-	last_name = forms.CharField(
-		required = True,
-		label = "Last Name",
-		help_text = "Enter your last name.",
-	)
+	# last_name = forms.CharField(
+	# 	required = True,
+	# 	label = "Last Name",
+	# 	help_text = "Enter your last name.",
+	# )
 
-	def clean_last_name(self):
-		last_name = self.cleaned_data['last_name']
-		all_symbols = set(last_name)
-		first_symbol = set(last_name[0])
+	# def clean_last_name(self):
+	# 	last_name = self.cleaned_data['last_name']
+	# 	all_symbols = set(last_name)
+	# 	first_symbol = set(last_name[0])
 
-		if ( first_symbol & _lower):
-			raise forms.ValidationError('First letter must be Uppercase.')
-		elif not ( all_symbols & _lower ):
-			raise forms.ValidationError('Only CAPITALS are not allowed.')
-		elif ( all_symbols & _digit ):
-			raise forms.ValidationError('Digits are not allowed in last name.')
+	# 	if ( first_symbol & _lower):
+	# 		raise forms.ValidationError('First letter must be Uppercase.')
+	# 	elif not ( all_symbols & _lower ):
+	# 		raise forms.ValidationError('Only CAPITALS are not allowed.')
+	# 	elif ( all_symbols & _digit ):
+	# 		raise forms.ValidationError('Digits are not allowed in last name.')
 
-		return last_name
+	# 	return last_name
 
 	captcha = CaptchaField(
 		required = True,
-		label = "Security Code",
+		label = u'安全码',
 	)
 
 	def clean_username(self):
@@ -152,19 +159,19 @@ class RegistrationForm(forms.Form):
 		except ObjectDoesNotExist:
 			return username
 
-		raise forms.ValidationError('E-mail already in use.')
+		raise forms.ValidationError('Username already in use.')
 
-	def clean_username_again(self):
-		"""Make sure that user verified `login` that he entered. """
-		if 'username' in self.cleaned_data:
-			username = self.cleaned_data['username']
-			username_again = self.cleaned_data['username_again']
+	# def clean_username_again(self):
+	# 	"""Make sure that user verified `login` that he entered. """
+	# 	if 'username' in self.cleaned_data:
+	# 		username = self.cleaned_data['username']
+	# 		username_again = self.cleaned_data['username_again']
 
-			if username == username_again:
-				return username
-			else:
-				return None
-			raise forms.ValidationError('E-mails do not match.')
+	# 		if username == username_again:
+	# 			return username
+	# 		else:
+	# 			return None
+	# 		raise forms.ValidationError('E-mails do not match.')
 
 	def clean_password(self):
 		"""Make sure `password` isn't too easy to break. """
