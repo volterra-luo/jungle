@@ -31,4 +31,6 @@ $( document ).ready( function() {
 	// });
 
 	function random(x) { return Math.random() * x };
+
+      $('#id_captcha:text').addClass("form-control");
 });
