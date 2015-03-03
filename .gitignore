@@ -2,7 +2,7 @@
 *.sqlite3
 *settings.py
 *_social_auth.py
-jungle/static/*
+## jungle/static/*
 fabfile.py
 *.conf
 
