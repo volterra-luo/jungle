@@ -11,11 +11,17 @@
     <div class="uk-width-2-3">
       <div class="container">
 
-        <form action="/" method="post" class="form-signin" role="form">
+        <form action="{% url 'muster:login' %}" method="post" class="form-signin" role="form">
           {% csrf_token %}
           <h2 class="form-signin-heading">请登陆</h2>
-          <input type="email" class="form-control" placeholder="邮箱" required autofocus>
-          <input type="password" class="form-control" placeholder="密码" required>
+          {% for field in form %}
+          <div class="form-group">
+              {{ field.errors }}
+              {{ field.label_tag }} {{ field }}
+            </div>
+            {% endfor %}
+         <!--  <input type="text" class="form-control" placeholder="" required autofocus>
+          <input type="password" class="form-control" placeholder="密码" required> -->
           <div class="checkbox">
             <label>
               <input type="checkbox" value="remember-me"> 记住我
@@ -40,9 +46,12 @@
 
     <div class="uk-width-1-1">
       <div class="container">
-        <a href="{% url 'muster:create' %}"> 我要注册 </a> 
+        <a href="{% url 'muster:register' %}"> 我要注册 </a> 
       </div>
     </div>
   </div>
     
+{% endblock %}
+{% block js %}
+  <script src="{% static 'jungle/js/register.js' %}"></script>
 {% endblock %}
