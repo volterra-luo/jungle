@@ -38,7 +38,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ("username",)
+        fields = ('username',)
 
     def clean_username(self):
         # Since User.username is unique, this check is redundant,
@@ -142,12 +142,12 @@ class LoginForm(forms.Form):
 	"""Form for logging in users. """
 	username = forms.CharField(
 		required = True,
-		label = "E-mail",
+		label = _("Username"),
 	)
 
 	password = forms.CharField(
 		required = True,
-		label = u"",
+		label = _('Password'),
 		widget = forms.PasswordInput(),
 	)
 
@@ -158,8 +158,7 @@ class LoginForm(forms.Form):
 		password = cleaned_data.get('password')
 
 		if username and password:
-			self.user = authenticate(username=username, # XXX: actually email
-				password=password)
+			self.user = authenticate(username=username, password=password)
 
 			if self.user is not None:
 				if self.user.is_active:
