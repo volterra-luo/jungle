@@ -8,9 +8,11 @@ from muster.forms import RegistrationForm, UserCreationForm,  LoginForm
 
 @login_required
 def index(request):
-   return render(request, 'quiz/index.html')
+	return render(request, 'quiz/index.html')
 
 def account_register_view(request, **args):
+	username = None
+	
 	if request.method == 'POST':
 
 		form = UserCreationForm(request.POST)
@@ -22,7 +24,6 @@ def account_register_view(request, **args):
 	else:
 		form = UserCreationForm()
 
-	username = None
 	local_args = { 'form': form, 'username': username, 'BASE_TMP': 'base/v0.1/base.html' }
 	return render(request, args.get('template'), local_args )
 
