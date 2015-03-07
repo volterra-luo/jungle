@@ -9,5 +9,5 @@ class Article(models.Model):
 	id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 	title = models.CharField(max_length=100)
 	content = models.TextField()
-	datetime = models.DateTimeField(default=timezone.now())
+	pub_date = models.DateTimeField('date published', default=timezone.now())
 	author = models.ForeignKey(User)
