@@ -28,7 +28,7 @@ def account_register_view(request, **args):
 	return render(request, args.get('template'), local_args )
 
 def account_login_view(request, **args):
-	next = request.REQUEST.get('next', '/')
+	next = request.REQUEST.get('next','/')
 	if request.method == 'POST':
 		if request.session.test_cookie_worked():
 			request.session.delete_test_cookie()
@@ -44,7 +44,7 @@ def account_login_view(request, **args):
 		form = LoginForm()
 		
 	request.session.set_test_cookie()	
-	local_args = {'form': form, 'BASE_TMP': 'base/v0.1/base.html'}
+	local_args = {'form': form, 'BASE_TMP': 'base/v0.1/base.html', 'next':next }
 	local_args.update(args)
 	return render(request, args.get('template'), local_args)
 
