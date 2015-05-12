@@ -18,6 +18,9 @@ urlpatterns = patterns('',
 
     url(r'^blog/', include('blog.urls', namespace='blog')),
 
+    # payment system
+    url(r'^alipay/', include('alipay.urls', namespace='alipay')),
+
     url(r'^credential/', include('credential.urls', namespace='certify')),
     url(r'^$', 'jungle.views.home', name='home'),
     # Examples:
