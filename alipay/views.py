@@ -10,4 +10,4 @@ import time, urllib, urllib2, logging, collections, mimetypes
 
 @login_required(login_url='/account/login/')
 def index(request):
-	return HttpResponse('hello world')
+	return render(request, 'alipay/index.html')
