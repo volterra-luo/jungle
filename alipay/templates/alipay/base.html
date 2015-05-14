@@ -1,7 +1,81 @@
-<html>
-<head>
-{% block title %}{% endblock%}
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="zh-CN">
+	<head>
+		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta name="description" content="">
+    	<meta name="author" content="">
+    	<link rel="icon" href="/favicon.ico">
+		<title>支付宝快捷登录接口</title>
+
+		<link rel="stylesheet" href="{% static 'alipay/css/alipay.css' %}">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<link rel="stylesheet" href="{% static 'alipay/css/style.css' %}">
 </head>
-<body>
+
+<body text=#000000 bgColor="#ffffff" leftMargin=0 topMargin=4>
+	<div id="main">
+		<div id="head">
+            <dl class="alipay_link">
+                <a target="_blank" href="http://www.alipay.com/"><span>支付宝首页</span></a>|
+                <a target="_blank" href="https://b.alipay.com/home.htm"><span>商家服务</span></a>|
+                <a target="_blank" href="http://help.alipay.com/support/index_sh.htm"><span>帮助中心</span></a>
+            </dl>
+            <span class="title"><a href="/">首页</a></span> | 
+            <span class="title">支付宝快捷登录+即时付款接口快速通道</span> | 
+            <span class="title"> 欢迎: {{ user.username }} </span>
+		</div>
+<br/>
+<br/>
+{% block content %}
+<div id="slider">
+<form id="reservation">
+  <label for="minbeds">请选择课程长度:</label>
+  <select name="minbeds" id="minbeds">
+    <option>1周</option>
+    <option>2周</option>
+    <option>3周</option>
+    <option>4周</option>
+  </select>
+</form>
+</div>
+{% endblock %}
+
+        <div class="cashier-nav">
+            <ol>
+				<li class="current">1、确认信息 →</li>
+				<li>2、点击确认 →</li>
+				<li class="last">3、确认完成</li>
+            </ol>
+        </div>
+        <form name=alipayment action={% url 'alipay:index' %} method=post target="_blank">
+        	{% csrf_token %}
+            <div id="body" style="clear:left">
+                <dl class="content">
+                    <dt></dt>
+                    <dd>
+                        <span class="new-btn-login-sp">
+                            <button class="new-btn-login" type="submit" style="text-align:center;">确 认</button>
+                        </span>
+                    </dd>
+                </dl>
+            </div>
+		</form>
+        <div id="foot">
+			<ul class="foot-ul">
+				<li><font class="note-help">如果您点击“确认”按钮，即表示您同意该次的执行操作。 </font></li>
+				<li>
+					支付宝版权所有 2011-2015 ALIPAY.COM 
+				</li>
+			</ul>
+		</div>
+	</div>
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script src="{% static 'alipay/js/myapp.js' %}"></script>
+	{% block js %}{% endblock %}
 </body>
 </html>
