@@ -1,14 +1,53 @@
 {% extends 'alipay/base.html' %}
+{% load staticfiles %}
+
 {% block content %}
-<div id="slider">
-<form id="reservation">
-  <label for="minbeds">请选择课程长度:</label>
-  <select name="minbeds" id="minbeds">
-    <option>1周</option>
-    <option>2周</option>
-    <option>3周</option>
-    <option>4周</option>
-  </select>
-</form>
+
+<div class="uk-grid">
+    <div class="uk-width-2-3">
+    	<div class="uk-panel">
+    <div class="uk-panel-badge uk-badge">
+    	<strong>个人用户</strong>
+    </div>
+    <h3 class="uk-panel-title">选择课程,课时,校区并支付</h3>
+    <div class="uk-block uk-block-muted">
+    	<div id="slider" style="width:80%;margin:0 auto;">
+			<form id="reservation">
+  				<label for="minbeds">请选择课程长度:</label>
+  				<select name="minbeds" id="minbeds">
+    				<option>1周</option>
+    				<option>2周</option>
+    				<option>3周</option>
+    				<option>4周</option>
+  				</select>
+			</form>
+		</div>
+    </div>
 </div>
+    </div>
+    <div class="uk-width-1-3">
+    	<div class="uk-panel">
+    		<div class="uk-panel-badge uk-badge">合作机构</div>
+    		<br/>
+    		<h4 class="uk-panel-title">选择课程规模，时长并支付</h4>
+    		<div class="uk-block uk-block-primary">block</div></div>
+		</div>
+<!--<div class="uk-width-1-3"></div>
+    	<!--<div id="slider">
+			<form id="reservation">
+  				<label for="minbeds">请选择课程长度:</label>
+  				<select name="minbeds" id="minbeds">
+    				<option>1周</option>
+    				<option>2周</option>
+    				<option>3周</option>
+    				<option>4周</option>
+  				</select>
+			</form>
+		</div> -->
+ 
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'uikit/2.20.3/js/uikit.min.js' %}"></script>
+<script src="{% static 'alipay/js/myapp.js' %}"></script>
 {% endblock %}
