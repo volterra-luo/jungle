@@ -28,8 +28,8 @@ def return_view(request):
 	local_args['sign'] = request.GET.get('sign','')
 
 	# bussiness paremeter (optional)
-	out_trade_no = request.GET.get('out_trade_no','')
-	subject = request.GET.get('subject','')
+	local_args['out_trade_no'] = request.GET.get('out_trade_no','')
+	local_args['subject'] = request.GET.get('subject','')
 	payment_type = ''
 	exterface = ''
 	trade_no = ''
