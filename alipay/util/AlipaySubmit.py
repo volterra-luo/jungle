@@ -16,7 +16,7 @@ ALIPAY_GATEWAY_NEW = 'https://mapi.alipay.com/gateway.do?'
 
 
 def buildRequestMysign(sPara):
-    # 把字典中所有元素，按照“参数=参数值”的模式用“&”字符拼接成字符串
+    # 把字典中所有元素，按照“参数=参数值”的模式用“&”字符拼接并且排序组成字符串
     prestr = AlipayCore.createLinkString(sPara)
     mysign = ''
     if AlipayConfig.sign_type == 'MD5':
