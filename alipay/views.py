@@ -43,6 +43,8 @@ def alipay_submit(request):
 	payload['royalty_type'] = 10
 	payload['royalty_parameters'] = royalty_str
 
+	req_param = AlipaySubmit.buildRequestPara(payload)
+	
 	url = ALIPAY_GATEWAY_NEW + ''
 
 	if request.method == 'POST':
