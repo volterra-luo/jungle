@@ -26,11 +26,8 @@ def alipay_submit(request):
 	payload['sign'] = ''
 	payload['return_url'] = RETURN_URL_BASE + 'receive_return/'
 
-	# business parameter (required)
-	payload['out_trade_no'] = ''
-	payload['subject'] = ''
+	# business parameter (required)	
 	payload['payment_type'] = 1
-	payload['total_fee'] = 0.01
 	payload['seller_id'] = ''
 
 	# # business parameter (optional)
@@ -42,13 +39,21 @@ def alipay_submit(request):
 	royalty_str = '^'.join([royalty_user,royalty_fee,royalty_word])
 	payload['royalty_type'] = 10
 	payload['royalty_parameters'] = royalty_str
-
-	req_param = AlipaySubmit.buildRequestPara(payload)
 	
 	url = ALIPAY_GATEWAY_NEW + ''
 
 	if request.method == 'POST':
-		alipay_requests.post(url, data=payload)
+		# business parameter (required)
+		payload['out_trade_no'] = ''
+		payload['subject'] = ''
+		payload['payment_type'] = 1
+		payload['total_fee'] = 0.01
+		payload['seller_id'] = ''
+
+		req_param = AlipaySubmit.buildRequestPara(payload)
+		alipay_requests.post(url, data=req_param)
+
+		return redirect(request,'alipay/order_confirm.html')
 
 
 def return_view(request):
