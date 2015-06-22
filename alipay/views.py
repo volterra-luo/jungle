@@ -46,9 +46,7 @@ def alipay_submit(request):
 		# business parameter (required)
 		payload['out_trade_no'] = ''
 		payload['subject'] = ''
-		payload['payment_type'] = 1
 		payload['total_fee'] = 0.01
-		payload['seller_id'] = ''
 
 		req_param = AlipaySubmit.buildRequestPara(payload)
 		alipay_requests.post(url, data=req_param)
