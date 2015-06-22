@@ -9,11 +9,42 @@ from config import AlipayConfig
 import time, urllib, urllib2, logging, collections, mimetypes
 import requests as alipay_requests
 
+RETURN_URL_BASE = 'http://jungle.nclab.com.cn/alipay/'
+ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?"
+
 @login_required(login_url='/account/login/')
 def index(request):
 	return render(request, 'alipay/index.html')
 
 def alipay_submit(request):
+	payload = dict()
+	# basic parameter (required)
+	payload['service'] = 'create_direct_pay_by_user'
+	payload['partner'] = AlipayConfig.partner
+	payload['_input_charset'] = AlipayConfig.input_charset
+	payload['sign_type'] = AlipayConfig.sign_type
+	payload['sign'] = ''
+	payload['return_url'] = RETURN_URL_BASE + 'receive_return/'
+
+	# business parameter (required)
+	payload['out_trade_no'] = ''
+	payload['subject'] = ''
+	payload['payment_type'] = 1
+	payload['total_fee'] = 0.01
+	payload['seller_id'] = ''
+
+	# # business parameter (optional)
+	payload['token'] = ''
+
+	royalty_user = 'uid2088123456789012'
+	royalty_fee = str(payload['total_fee'] * 0.01)
+	royalty_word = u'分你的(share with you)'
+	royalty_str = '^'.join([royalty_user,royalty_fee,royalty_word])
+	payload['royalty_type'] = 10
+	payload['royalty_parameters'] = royalty_str
+
+	url = ALIPAY_GATEWAY_NEW + ''
+
 	if request.method == 'POST':
 		alipay_requests.post(url, data=payload)
 
