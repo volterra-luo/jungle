@@ -1,4 +1,7 @@
+import datetime
+
 from django.db import models
+from django.utils import timezone
 
 class Product(models.Model):
 	user_name = ''
@@ -10,4 +13,4 @@ class Product(models.Model):
 	payment_status = ''
 
 	def __unicode__(self):
-		return self.user_name + '|' + self.out_trade_no
+		return self.user_name + ' | ' + self.out_trade_no
