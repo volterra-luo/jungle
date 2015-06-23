@@ -19,6 +19,7 @@ def index(request):
 
 def alipay_submit(request):
 	payload = dict()
+	
 	# basic parameter (required)
 	payload['service'] = 'create_direct_pay_by_user'
 	payload['partner'] = AlipayConfig.partner
