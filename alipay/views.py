@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
+from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
 from util import AlipaySubmit
@@ -51,7 +52,7 @@ def alipay_submit(request):
 		req_param = AlipaySubmit.buildRequestPara(payload)
 		alipay_requests.post(url, data=req_param)
 
-		return redirect(request,'alipay/order_confirm.html')
+		return HttpResponseRedirect('alipay/order_confirm.html')
 
 
 def return_view(request):
