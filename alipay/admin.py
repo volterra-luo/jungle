@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 
-# Register your models here.
+from .models import Product
+
+class ProductAdmin(admin.ModelAdmin):
+    fields = ['out_trade_no', 'subject', 'total_fee']
+
+admin.site.register(Product, ProductAdmin)
