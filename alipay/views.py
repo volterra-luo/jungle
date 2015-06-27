@@ -11,13 +11,13 @@ import time, urllib, urllib2, logging, collections, mimetypes
 import requests as alipay_requests
 
 RETURN_URL_BASE = 'http://jungle.nclab.com.cn/alipay/'
-ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do?"
+ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do"
 
 @login_required(login_url='/account/login/')
 def index(request):
 	return render(request, 'alipay/index.html')
 
-def alipay_submit(request):
+def alipay_submit(request, course_id):
 	payload = dict()
 	
 	# basic parameter (required)
@@ -42,7 +42,6 @@ def alipay_submit(request):
 	payload['royalty_type'] = 10
 	payload['royalty_parameters'] = royalty_str
 	
-	url = ALIPAY_GATEWAY_NEW + ''
 
 	if request.method == 'POST':
 		# business parameter (required)
@@ -50,8 +49,12 @@ def alipay_submit(request):
 		payload['subject'] = ''
 		payload['total_fee'] = 0.01
 
+		url = ALIPAY_GATEWAY_NEW + ''
 		req_param = AlipaySubmit.buildRequestPara(payload)
-		alipay_requests.post(url, data=req_param)
+		resp = alipay_requests.post(url, data=req_param)
+		
+		if resp.status_code == requests.codes.ok:
+			pass
 
 		return HttpResponseRedirect('alipay/order_confirm.html')
 
