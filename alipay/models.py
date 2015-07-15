@@ -4,6 +4,11 @@ import datetime
 from django.db import models
 from django.utils import timezone
 
+
+def _trade_no_gen():
+	pass
+
+
 class Product(models.Model):
 	
 	user_name = models.CharField(
@@ -13,14 +18,17 @@ class Product(models.Model):
 	)
 
 	out_trade_no = models.CharField(
-		max_length=64, 
-		help_text='An unique numbered transaction ID in merchant system', 
+		max_length = 64, 
+		help_text = 'An unique numbered transaction ID in merchant system', 
+		default = _trade_no_gen(), 
 	)
 
 	trade_no = models.CharField(
 		max_length=28, 
 		help_text='The transaction ID in alipay system',
 	)
+
+	course_id = models.IntegerField()
 
 	subject = models.CharField(
 		max_length=200,
@@ -34,10 +42,22 @@ class Product(models.Model):
 
 	created_date = models.DateTimeField(auto_now_add=True)
 	payment_date = models.DateTimeField(auto_now=True)
-	payment_status = models.IntegerField()
 
+	# not pay - 0
+	# pay success - 1
+	payment_status = models.IntegerField(default=0)
+
+	
 	class Meta:
-        ordering = ['payment_date', 'trade_no']
+		ordering = ['payment_date', 'trade_no']
+
+	
+	def save(self, *args, **kwargs):
+		if self.user_name in ['admin', 'test']:
+			return
+		else:
+			super(Product, self).save(*args, **kwargs)
+
 
 	def __unicode__(self):
 		return self.user_name + ' | ' + self.out_trade_no
