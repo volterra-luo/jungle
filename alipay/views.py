@@ -10,8 +10,17 @@ from config import AlipayConfig
 import time, urllib, urllib2, logging, collections, mimetypes
 import requests as alipay_requests
 
+from .models import Product
+
 RETURN_URL_BASE = 'http://jungle.nclab.com.cn/alipay/'
 ALIPAY_GATEWAY_NEW = "https://mapi.alipay.com/gateway.do"
+
+COURSE_DESCRIPT = { 
+	'1' : 'karel the robot', 
+	'2' : 'turtle programming',
+	'3' : '3D modeling',
+	'4' : 'Python programming',
+}
 
 @login_required(login_url='/account/login/')
 def index(request):
@@ -44,10 +53,21 @@ def alipay_submit(request, course_id):
 	
 
 	if request.method == 'POST':
+		
+		p = Product.objects.create(
+			user_name='', 
+			course_id=1, 
+			subject=COURSE_DESCRIPT['course_id']
+			total_fee=30.00
+		)
+		p.save()
+
 		# business parameter (required)
 		payload['out_trade_no'] = ''
 		payload['subject'] = ''
 		payload['total_fee'] = 0.01
+
+
 
 		url = ALIPAY_GATEWAY_NEW + ''
 		req_param = AlipaySubmit.buildRequestPara(payload)
