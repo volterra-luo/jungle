@@ -57,7 +57,7 @@ def alipay_submit(request, course_id):
 		p = Product.objects.create(
 			user_name='', 
 			course_id=1, 
-			subject=COURSE_DESCRIPT['course_id']
+			subject=COURSE_DESCRIPT['course_id'],
 			total_fee=30.00
 		)
 		p.save()
