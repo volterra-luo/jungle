@@ -3,7 +3,7 @@
 *settings.py
 *_social_auth.py
 ## jungle/static/*
-fabfile.py
+# fabfile.py
 *.conf
 
 #############
