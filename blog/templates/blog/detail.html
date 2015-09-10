@@ -1,5 +1,20 @@
 {% extends 'base/v0.1/base.html' %}
 
 {% block content %}
-<p>{{ blog.title }}</p>
+<!-- <p>{{ blog.title }}</p> -->
+<div class="uk-grid">
+    <div class="uk-width-1-3">
+    	...
+    </div>
+    <div class="uk-width-1-3">
+		<p>Video Test</p>
+		<video width="480" height="320" autoplay loop muted controls>  
+        	<source src="http://static.nclab.com.cn/Lake.mp4" type="video/mp4" >
+       </video>
+    </div>
+     <div class="uk-width-1-3">
+    	...
+    </div>
+</div>
+
 {% endblock%}
