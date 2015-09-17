@@ -2,28 +2,72 @@
 {% load staticfiles %}
 
 {% block content %}
-<div class="uk-grid">
+<div class="container">
+  <div class="uk-grid">
       <div class="uk-width-1-2">
-        <div class="container">
           <form action="{% url 'muster:register' %}" method="post"
-      			class="form-signin" role="form">
-            {% csrf_token %}
-            {% for field in form %}
-            <div class="form-group">
-              {{ field.errors }}
-              {{ field.label_tag }} {{ field }}
-            </div>
-            {% endfor %}
-            <button class="btn btn-lg btn-primary btn-block" type="submit">注 册</button>
+      			class="uk-form uk-form-stacked form-signin" role="form">
+            <fieldset data-uk-margin>
+              {% csrf_token %}
+              {% for field in form %}
+                <div class="form-group">
+                  {{ field.errors }}
+                  {{ field.label_tag }} {{ field }}
+                </div>
+              {% endfor %}
+
+              <div class="radio">
+                <labal>
+                  <input type="radio" name="ParentOrTeacherRole" value="P" checked>
+                     <span style="margin-left:10px;" class="uk-text-primary">家长</span>
+                </labal>
+              </div>
+              <div class="radio">
+                <labal>
+                  <input type="radio" name="ParentOrTeacherRole" value="T" >
+                     <span style="margin-left:10px;" class="uk-text-primary">教师</span>
+                </labal>
+              </div>
+              <div style="margin: 10px 0px 10px 0px; clear: both;">
+                <labal>
+                  <input id='termofuse' style="float: left; width: 10%; margin-top:4px" type='checkbox' checked> 
+                  <span style="margin:auto;"><a href='/' target='_blank'>同意《使用条款》</a></span>
+                </labal>
+              </div>
+              <button id="submitB" class="btn btn-lg btn-primary btn-block" type="submit">注 册</button>
+            </fieldset>
           </form>
-      </div> <!-- /container -->
-    </div>
-    <div class="uk-width-1-1">
+      </div> 
+      
+      <div class="uk-width-1-2">
+        <a href="{% url 'muster:login' %}"> <p class='uk-text-primary'>直接登陆 </p></a> 
+      </div>
+  </div>
+</div> <!-- container -->
+
+    <!-- <div class="uk-width-1-2">
       <div class="container">
-        <a href="{% url 'muster:login' %}"> 直接登陆 </a> 
+        {% comment %}
+        <ul id="demo">
+          <li v-repeat="items" class="item-{{$index}}">
+            {{$index}} - {{parentMsg}} {{childMsg}}
+          </li>
+        </ul>
+
+        var demo = new Vue({
+            el: '#demo',
+            data: {
+              parentMsg: 'Hello',
+              items: [
+                { childMsg: 'Foo' },
+                { childMsg: 'Bar' }
+              ]
+            }
+          }) 
+        {% endcomment %}
       </div>
     </div>
-  </div>
+  </div> -->
 {% endblock %}
 
 {% block js %}
