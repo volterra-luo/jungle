@@ -5,10 +5,10 @@ $( document ).ready( function(){
     	var username = $(':text');
 		var pwd = $(':password');
     		username.hover(function(){
-      			$(this).attr('placeholder','test');
+      			$(this).attr('placeholder','e.g. test');
     		});
 		pwd.hover(function(){
-			$(this).attr('placeholder','123456');
+			$(this).attr('placeholder','e.g. 123456');
 		});
    	});
 
