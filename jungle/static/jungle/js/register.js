@@ -2,7 +2,7 @@ $( document ).ready( function(){
 	$(':input').addClass("form-control");
 
 	$(function(){
-    	var username = $(':text');
+    var username = $(':text');
 		var pwd = $(':password');
     		username.hover(function(){
       			$(this).attr('placeholder','e.g. test');
