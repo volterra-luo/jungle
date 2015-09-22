@@ -1,11 +1,12 @@
+# -*- coding: utf-8 -*-
 from django.db import models
-
 from django.contrib.auth.models import User
 
-class Teacher(models.Model):
-    user = models.OneToOneField(User)
-    school = models.CharField(max_length=100)
+class Person(models.Model):
+	user = models.OneToOneField(User)
+	is_verified = models.BooleanField(default=False)
+	is_admitted = models.BooleanField(default=False)
+	role = models.CharField(default='P', max_length=1)
 
-class Parent(models.Model):
-    user = models.OneToOneField(User)
-    kid = models.CharField(max_length=100)
+	def __unicode__(self):
+		return self.user.username
