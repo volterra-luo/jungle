@@ -1,0 +1,19 @@
+{% extends BASE_TMP %}
+
+{% load staticfiles %}
+
+{% block content %}
+	<p> 感谢您注册为NCLab用户!  </p>
+
+	{% if not user.person.is_verified %}
+		<p> 您的邮箱尚未认证,  <botton><a href="/"> 点我认证 </a></botton></p>
+	{% else %}
+		{% if not user.person.is_admitted %}
+			<p>您的邮箱地址已经认证.</p>
+			<p>我们将在24小时内为您安装材料，开通帐户，并邮件通知您。</p>
+		{% else %}
+			<p>恭喜您帐户激活成功.</p>
+			<p>祝使用愉快。</p>
+		{% endif%}
+	{% endif %}
+{% endblock %}
