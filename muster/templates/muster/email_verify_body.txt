@@ -1,0 +1,7 @@
+{% load i18n %}{% autoescape off %}
+{% blocktrans %}邮箱地址验证!{% endblocktrans %}
+
+请复制以下链接到浏览器进行验证:
+
+{{ protocal }}://{{ host }}/account/email_verify?uidb64={{ uid }}&token={{ token }}
+{% endautoescape %}
