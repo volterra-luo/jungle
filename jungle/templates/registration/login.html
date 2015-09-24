@@ -1,5 +1,7 @@
 {% extends 'base/v0.1/base.html' %}
 
+{% load staticfiles %}
+
 {% block content %}
   
   <div class="uk-grid">
@@ -27,6 +29,9 @@
               <input type="checkbox" value="remember-me"> 记住我
             </label>
           </div>
+          <div >
+            <p><a href="{% url 'muster:password_reset' %}" > 忘记密码? </a></p>
+          </div>
           {% if next %}
           	<input type='hidden' name='next' value='{{ next }}'>
           {% endif %}
@@ -44,6 +49,10 @@
       <hr />
       <div class="container">
         <a href="javascript:void(function(){var d=document,e=encodeURIComponent,s1=window.getSelection,s2=d.getSelection,s3=d.selection,s=s1?s1():s2?s2():s3?s3.createRange().text:'',r='http://www.douban.com/recommend/?url='+e(d.location.href)+'&title='+e(d.title)+'太赞了,快告诉你的小伙伴!'+'&sel='+e(s)+'&v=1',w=450,h=330,x=function(){if(!window.open(r,'douban','toolbar=0,resizable=1,scrollbars=yes,status=1,width='+w+',height='+h+',left='+(screen.width-w)/2+',top='+(screen.height-h)/2))location.href=r+'&r=1'};if(/Firefox/.test(navigator.userAgent)){setTimeout(x,0)}else{x()}})()"><img src="http://img2.douban.com/pics/fw2douban1.png" alt="推荐到豆瓣" /></a>
+      </div>
+      <br />
+      <div class="container">
+          <a href="https://github.com/login/oauth/authorize?client_id=6351e3f4d3c0f4880015"><img src="{% static 'img/github/login_with_github_32.png' %}"></a>  
       </div>
     </div>
 
