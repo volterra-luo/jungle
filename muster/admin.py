@@ -1,8 +1,13 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
 from muster.models import Person
 
-class PersonAdmin(admin.ModelAdmin):
-    pass
+class PersonInline(admin.StackedInline):
+	model = Person
 
 
-admin.site.register(Person, PersonAdmin)
+class UserAdmin(admin.ModelAdmin):
+	inlines = [PersonInline]
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
