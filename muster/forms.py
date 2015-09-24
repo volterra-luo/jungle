@@ -14,6 +14,41 @@ _digit = set(map(chr, range(48, 58)))
 _upper = set(map(chr, range(65, 91)))
 _lower = set(map(chr, range(97,123)))
 
+class UserCreationForm2(forms.Form):
+
+
+	email = forms.EmailField(label=_("Email"),
+
+		)
+
+	username = forms.RegexField(label=_("Username"), max_length=30,
+        regex=r'^[\w.@+-]+$',
+        help_text=_("Required. 30 characters or fewer. Letters, digits and "
+                    "@/./+/-/_ only."),
+        error_messages={
+            'invalid': _("This value may contain only letters, numbers and "
+                         "@/./+/-/_ characters.")})
+
+	password = forms.CharField(label=_("Password"),
+        widget=forms.PasswordInput)
+
+	error_messages = {
+		'duplicate_username': _(u'此用户名已存在,请输入新的用户名'),
+	}
+
+	def clean_username(self):
+		username = self.cleaned_data['username']
+		try:
+			User._default_manager.get(username=username)
+		except User.DoesNotExist:
+			return username
+		raise forms.ValidationError(
+			self.error_messages['duplicate_username'],
+			code='duplicate_username'
+		)
+
+
+
 class UserCreationForm(forms.ModelForm):
     """
     A form that creates a user, with no privileges, from the given username and
@@ -23,6 +58,7 @@ class UserCreationForm(forms.ModelForm):
         'duplicate_username': _("A user with that username already exists."),
         'password_mismatch': _("The two password fields didn't match."),
     }
+
     username = forms.RegexField(label=_("Username"), max_length=30,
         regex=r'^[\w.@+-]+$',
         help_text=_("Required. 30 characters or fewer. Letters, digits and "
