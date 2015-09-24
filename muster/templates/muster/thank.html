@@ -6,7 +6,7 @@
 	<p> 感谢您注册为NCLab用户!  </p>
 
 	{% if not user.person.is_verified %}
-		<p> 我们向您发送了验证地址,  请移步注册邮箱进行<botton><a href="{{ user.person.mailbox }}" target='_blank'> 验证 </a></botton></p>
+		<p> 我们向您发送了验证地址,  请移步注册邮箱进行 <botton><a href="{{ user.person.mailbox }}" target='_blank'> 验证 </a></botton></p>
 	{% else %}
 		{% if not user.person.is_admitted %}
 			<p>您的邮箱地址已经认证.</p>
