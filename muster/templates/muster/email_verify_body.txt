@@ -1,7 +1,11 @@
-{% load i18n %}{% autoescape off %}
-{% blocktrans %}邮箱地址验证!{% endblocktrans %}
+{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}{% endblocktrans %}
+<p>亲爱的 <strong> {{ user.username }} </strong>:</p>
 
-请复制以下链接到浏览器进行验证:
+<p>感谢注册为NCLab用户.</p>
+<p>请复制或点击 <a href="{{ protocal }}://{{ host }}/account/email_verify?uidb64={{ uid }}&token={{ token }}">此连接</a> 至浏览器, 进行验证!</p>
 
-{{ protocal }}://{{ host }}/account/email_verify?uidb64={{ uid }}&token={{ token }}
+<p>祝好, </p>
+<p>NCLab 客服团队 敬上</p>
 {% endautoescape %}
