@@ -70,7 +70,8 @@ def account_register_view(request, **args):
             }
         	body = loader.render_to_string('muster/email_verify_body.txt', context)
 
-        	send_mail('[NCLab]欢迎注册为NCLab用户', body, settings.EMAIL_HOST_USER, [email], fail_silently=False)
+        	send_mail('[NCLab]欢迎注册为NCLab用户.邮箱验证', body, settings.EMAIL_HOST_USER, [email], 
+        		fail_silently=False, html_message=body)
         	return HttpResponsePermanentRedirect(reverse('muster:thank'))
 
 	else:
