@@ -6,6 +6,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^quiz/',include('appetizer.urls')),
     url(r'^dimension/admin/', include(admin.site.urls)),
+
+    url(r'^api/', include('restframe.urls', namespace='api')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     #url(r'^rest/',include('restframe.urls')),
     
