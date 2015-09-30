@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Person(models.Model):
-	user = models.OneToOneField(User)
+	user = models.OneToOneField(User, related_name='person')
 	is_verified = models.BooleanField(default=False)
 	is_admitted = models.BooleanField(default=False)
 	role = models.CharField(default='P', max_length=1)
