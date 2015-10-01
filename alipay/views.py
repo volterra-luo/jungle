@@ -4,8 +4,8 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 from django.contrib.auth.decorators import login_required
 
-from util import AlipaySubmit
-from config import AlipayConfig
+from alipay.util import AlipaySubmit
+from alipay.config import AlipayConfig
 
 import time, urllib, urllib2, logging, collections, mimetypes
 import requests as alipay_requests
