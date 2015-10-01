@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from alipay.util import AlipaySubmit
 from alipay.config import AlipayConfig
 
-import time, urllib, urllib2, logging, collections, mimetypes
+import time, urllib, logging, collections, mimetypes
 import requests as alipay_requests
 
 from .models import Product
