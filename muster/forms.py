@@ -8,7 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 # from muster.contrib.captcha import CaptchaField
-from jungle.settings import MIN_PASSWORD_LEN, CHECK_STRENGTH
+# from jungle.settings import MIN_PASSWORD_LEN, CHECK_STRENGTH
 
 _digit = set(map(chr, range(48, 58)))
 _upper = set(map(chr, range(65, 91)))
