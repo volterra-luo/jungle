@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import AlipayCore
-from config import AlipayConfig
+from alipay.util import AlipayCore
+from alipay.config import AlipayConfig
 
 # 支付宝消息验证地址
 HTTPS_VERIFY_URL = 'https://mapi.alipay.com/gateway.do?service=notify_verify&'

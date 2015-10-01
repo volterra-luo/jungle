@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import AlipayCore
+from alipay.util import AlipayCore
 from alipay.config import AlipayConfig
 from alipay.sign import MD5
 
