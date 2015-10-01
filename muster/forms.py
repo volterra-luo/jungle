@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from muster.contrib.captcha import CaptchaField
+# from muster.contrib.captcha import CaptchaField
 from jungle.settings import MIN_PASSWORD_LEN, CHECK_STRENGTH
 
 _digit = set(map(chr, range(48, 58)))
@@ -204,27 +204,27 @@ class LoginForm(forms.Form):
 					raise forms.ValidationError('Incorrect login name or password. Please try again.')
 
 
-class ReminderForm(forms.Form):
-	"""Password reminder form. """
-	username = forms.CharField(
-		required = True,
-		label = "E-mail",
-	)
-	captcha = CaptchaField(
-		required = True,
-		label = "Security Code",
-	)
+# class ReminderForm(forms.Form):
+# 	"""Password reminder form. """
+# 	username = forms.CharField(
+# 		required = True,
+# 		label = "E-mail",
+# 	)
+# 	captcha = CaptchaField(
+# 		required = True,
+# 		label = "Security Code",
+# 	)
 
-	def clean_username(self):
-		"""Make sure that `username` is registred in the system. """
-		username = self.cleaned_data['username']
+# 	def clean_username(self):
+# 		"""Make sure that `username` is registred in the system. """
+# 		username = self.cleaned_data['username']
 
-		try:
-			User.objects.get(email=username)
-		except ObjectDoesNotExist:
-			raise forms.ValidationError('Selected user does not exist.')
+# 		try:
+# 			User.objects.get(email=username)
+# 		except ObjectDoesNotExist:
+# 			raise forms.ValidationError('Selected user does not exist.')
 
-		return username
+# 		return username
 
 
 
