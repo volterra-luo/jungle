@@ -6,5 +6,6 @@ admin.autodiscover()
 from blog import views
 
 urlpatterns = patterns('',	
-	url(r'^$', views.index),
+	url(r'^$', views.index ),
+	url(r'^tutorial/$', views.detail ),
 )
