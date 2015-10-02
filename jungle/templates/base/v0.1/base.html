@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="http://jungle.nclab.com.cn/favicon.ico">
+    <link rel="shortcut icon" href="http://jungle.nclab.com.cn/favicon.ico" >
 
     <title> {% block title %} Karel {% endblock %} </title>
 
@@ -22,7 +22,11 @@
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="{% static 'jungle/js/ie-emulation-modes-warning.js' %}"></script>
-
+    
+    <!-- React.js -->
+    <script src="{% static 'react/build/react.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    
     <!-- Vue.js -->
     <script src="{% static 'vue/0.12.10/vue.min.js' %}"></script>
 
