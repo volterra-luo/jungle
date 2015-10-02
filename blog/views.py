@@ -5,6 +5,4 @@ from blog.models import Article
 
 @login_required(login_url='/account/login/')
 def index(request):
-	#blog = Article.objects.all()
-	#return render(request, 'blog/detail.html', {'blog': blog[0]})
-	return render(request,'blog/detail.html')
+	return render(request,'blog/index.html')
