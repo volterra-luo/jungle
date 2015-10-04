@@ -3,12 +3,15 @@ from rest_framework import serializers
 from muster.models import Person
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
 	person = serializers.PrimaryKeyRelatedField(read_only=True)
+	is_admitted = serializers.ReadOnlyField(source='person.is_admitted')
+	is_verified = serializers.ReadOnlyField(source='person.is_verified')
+
 
 	class Meta:
 		model = User
-		fields = ('id', 'username', 'email', 'person')
+		fields = ('id', 'username', 'email', 'person', 'is_admitted', 'is_verified')
 
 
 class PersonSerializer(serializers.HyperlinkedModelSerializer):
