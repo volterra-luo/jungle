@@ -10,6 +10,11 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+var data = [
+  {username: "Pete Hunt", email: "This is one comment"},
+  {username: "Jordan Walke", email: "This is *another* comment"}
+];
+
 var Comment = React.createClass({
   rawMarkup: function() {
     var rawMarkup = marked(this.props.children.toString(), {sanitize: true});
@@ -60,7 +65,7 @@ var CommentBox = React.createClass({
     });
   },
   getInitialState: function() {
-    return {data: []};
+    return {data: {results:[]}};
   },
   componentDidMount: function() {
     this.loadCommentsFromServer();
@@ -69,9 +74,9 @@ var CommentBox = React.createClass({
   render: function() {
     return (
       <div className="commentBox">
-        <h1>Comments</h1>
-        <CommentList data={this.state.data} />
-        <CommentForm onCommentSubmit={this.handleCommentSubmit} />
+        <h1>NCLab Users</h1>
+        <CommentList data={this.state.data.results} />
+        <CommentForm />
       </div>
     );
   }
@@ -79,19 +84,19 @@ var CommentBox = React.createClass({
 
 var CommentList = React.createClass({
   render: function() {
-    var commentNodes = this.props.data.map(function(comment, index) {
+    var userNodes = this.props.data.map(function(user, index) {
       return (
         // `key` is a React-specific concept and is not mandatory for the
         // purpose of this tutorial. if you're curious, see more here:
         // http://facebook.github.io/react/docs/multiple-components.html#dynamic-children
-        <Comment author={comment.author} key={index}>
-          {comment.text}
+        <Comment author={user.username} key={index}>
+          {user.email}
         </Comment>
       );
     });
     return (
-      <div className="commentList">
-        {commentNodes}
+      <div className="userList">
+        {userNodes}
       </div>
     );
   }
@@ -114,13 +119,13 @@ var CommentForm = React.createClass({
       <form className="commentForm" onSubmit={this.handleSubmit}>
         <input type="text" placeholder="Your name" ref="author" />
         <input type="text" placeholder="Say something..." ref="text" />
-        <input type="submit" value="Post" />
+        <input type="submit" value="提交" />
       </form>
     );
   }
 });
 
 React.render(
-  <CommentBox url="/api/comments" pollInterval={2000} />,
+  <CommentBox url="/api/users.json" pollInterval={2000} />,
   document.getElementById('content')
 );
