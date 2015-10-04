@@ -1,6 +1,13 @@
 {% extends 'base/v0.1/base.html' %}
 {% load staticfiles %}
 
+{% block reactjs %}
+    <!-- React.js -->
+    <script src="{% static 'react/build/react.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+{% endblock %}
+
 {% block content %}
 <div id="content"></div>
 <script type="text/babel" src="{% static 'react/scripts/example.js' %}"></script>
