@@ -1,10 +1,50 @@
 {% extends 'alipay/base.html' %}
 {% load staticfiles %}
 
+{% block headjs %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+  $(function() {
+    $( "#slider-2" ).slider({
+      value:10,
+      min: 1,
+      max: 12,
+      step: 1,
+      slide: function( event, ui ) {
+        $( "#amount" ).val( ui.value + "个月");
+      }
+    });
+    $( "#amount" ).val( $( "#slider-2" ).slider( "value" ) + "个月");
+  });
+
+  $(function() {
+    $("#kids").bind("input", function(){
+        var num_check = new RegExp('\\d{1,3}$');
+        if(num_check.test(this.value)){
+            var num = parseInt(this.value);
+            console.log(num);
+            if( num>=2 && num <=100 ){
+                $("#kid-amount").val(this.value + "人");
+            }
+            else{
+                $("#kid-amount").val("请确保介于2-100之间!");
+            }
+        }
+        else{ 
+            $("#kid-amount").val("请输入数字!");
+        }
+    });
+    $("#kid-amount").val("30人");
+  });
+  </script>
+{% endblock %}
+
 {% block content %}
 
 <div class="uk-grid">
-    <div class="uk-width-2-3">
+    <div class="uk-width-1-2">
     	<div class="uk-panel">
     <div class="uk-panel-badge uk-badge">
     	<strong>个人用户</strong>
@@ -25,12 +65,43 @@
     </div>
 </div>
     </div>
-    <div class="uk-width-1-3">
+    <div class="uk-width-1-2">
     	<div class="uk-panel">
     		<div class="uk-panel-badge uk-badge">合作机构</div>
     		<br/>
     		<h4 class="uk-panel-title">选择课程规模，时长并支付</h4>
-    		<div class="uk-block uk-block-primary">block</div></div>
+            <form class="uk-form">
+
+    <fieldset data-uk-margin>
+        <legend>选择课程</legend>
+        <select>
+            <option>Karel机器人</option>
+            <option>Turtle 绘画</option>
+            <option>3D 建模</option>
+            <option>Python 入门</option>
+        </select>
+        <legend>选择时长</legend>
+        <p>
+            <label for="amount">请选择平台使用时长 (以月递增):</label>
+            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+        <div id="slider-2"></div>
+        <legend>人员规模</legend>
+        <div class="uk-form-icon">
+            <i class="uk-icon-child"></i>
+            <input type="text" id="kids" placeholder="30" class="uk-form-width-small">
+        </div>
+        <p>
+            <label for="kid-amount">班级人数:</label>
+            <input type="text" id="kid-amount" readonly style="border:0; color:#f6931f; font-weight:bold; width:80%;">
+        </p>
+
+        <label><input type="checkbox"> 同意<a href="/">使用条款</a></label>
+    </fieldset>
+
+</form>
+    		<!-- <div class="uk-block uk-block-primary">block</div> -->
+        </div>
 		</div>
 <!--<div class="uk-width-1-3"></div>
     	<!--<div id="slider">
