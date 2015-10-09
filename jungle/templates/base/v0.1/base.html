@@ -34,7 +34,6 @@
     <![endif]-->
     <link href="{% static 'fuelux/3.0.0/css/fuelux.min.css' %}" rel="stylesheet">
     <link href="{% static 'uikit/2.12.0/css/uikit.min.css' %}" rel="stylesheet">
-    
     <!-- Custom styles for this template -->
     <link href="{% static 'jungle/css/signin.css'%}" rel="stylesheet">
     <link href="{% static 'jungle/css/jumbotron.css' %}" rel="stylesheet">
@@ -103,7 +102,9 @@
             <h1>Karel, 欢迎你!</h1>
             <p>Karel the Robot 是驻在在线平台中的可视化互动自学习机器人, 它能够帮助初学者循序渐进地进入编程殿堂.</p>
 	           <p><a class="btn btn-primary btn-lg" href="http://karel.readthedocs.org/zh_CN/latest/p01.html" role="button" target='_blank'>了解更多 &raquo;</a> | 
-			<a class="btn btn-default" href="/alipay/" role="button" >购买 &raquo;</a></p>
+			<a class="btn btn-default" href="/alipay/" role="button" >购买 &raquo;</a> | 
+      <a class="btn btn-default" href="https://desktop.nclab.com/viewer/673c32d01644453a81ad4cf716748b5a" role="button" target="_blank"> 体验&raquo;</a>
+    </p>
           </div>
           <div class="col-md-4">
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -218,6 +219,7 @@
      <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{% static 'uikit/2.12.0/js/uikit.min.js' %}"></script>
     <script src="{% static 'bootstrap/3.3.1/js/bootstrap.min.js' %}"></script>
+    {% block uikitjs %} {% endblock %}
     <script src="{% static 'fuelux/3.0.0/js/fuelux.min.js' %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'jungle/js/ie10-viewport-bug-workaround.js' %}"></script>
