@@ -1,12 +1,15 @@
 {% extends "rest_framework/base.html" %}
 
 {# Override this template in your own templates directory to customize #}
-
-{% block title %}
-	Computing-works
-{% endblock %}
-
 {% block branding %}
-	<a class='brand' rel="nofollow" href='http://www.django-rest-framework.org'>Computing-works Rest framework <span class="version">{{ version }}</span></a>
+              <a class='navbar-brand' rel="nofollow" href='http://jungle.nclab.com.cn/'>
+                  Computing-works <span class="version">{{ version }}</span>
+              </a>
 {% endblock %}
-               
+
+
+{% block bootstrap_theme %}
+    <link rel="stylesheet" href="http://bootswatch.com/paper/bootstrap.min.css" type="text/css">
+{% endblock %}
+
+{% block bootstrap_navbar_variant %}{% endblock %}
