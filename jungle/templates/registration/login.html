@@ -16,6 +16,7 @@
         <form action="{% url 'muster:login' %}" method="post" class="form-signin" role="form">
           {% csrf_token %}
           <h2 class="form-signin-heading">请登陆</h2>
+          {{ form.non_field_errors }}
           {% for field in form %}
           <div class="form-group">
               {{ field.errors }}
