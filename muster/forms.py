@@ -17,17 +17,19 @@ _lower = set(map(chr, range(97,123)))
 class UserCreationForm2(forms.Form):
 
 
-	email = forms.EmailField(label=_("Email"),
+	email = forms.EmailField(label=_("Email"), 
+		help_text=_('A valid email address, please.'),
+	)
 
-		)
-
-	username = forms.RegexField(label=_("Username"), max_length=30,
-        regex=r'^[\w.@+-]+$',
+	username = forms.RegexField(label=_("Username"), max_length=30, 
+		regex=r'^[\w.@+-]+$',
         help_text=_("Required. 30 characters or fewer. Letters, digits and "
                     "@/./+/-/_ only."),
         error_messages={
             'invalid': _("This value may contain only letters, numbers and "
-                         "@/./+/-/_ characters.")})
+                         "@/./+/-/_ characters.")
+            }
+        )
 
 	password = forms.CharField(label=_("Password"),
         widget=forms.PasswordInput)
@@ -201,7 +203,8 @@ class LoginForm(forms.Form):
 					return cleaned_data
 				else:
 					raise forms.ValidationError('Your account was disabled.')
-					raise forms.ValidationError('Incorrect login name or password. Please try again.')
+
+			raise forms.ValidationError('用户名与密码不匹配, 请重新输入.')
 
 
 # class ReminderForm(forms.Form):
