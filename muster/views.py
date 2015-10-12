@@ -51,28 +51,29 @@ def account_register_view(request, **args):
 		if form.is_valid():
 			username = form.cleaned_data['username']
 			email = form.cleaned_data['email']
+			print email
 			password = form.cleaned_data['password']
 			u = User.objects.create_user(username=username, password=password, email=email)
 			p = Person.objects.create(user=u, role=PTStatus)
 			p.save()
 
-			
 			#subject = loader.render_to_string(subject_template_name, context)
-        	# Email subject *must not* contain newlines
-        	#subject = ''.join(subject.splitlines())
-        	context = {
-        		'protocal': 'http',
-        		'host': request.META.get('HTTP_HOST'),
-        		'email': email,
-                'uid': urlsafe_base64_encode(force_bytes(u.pk)),
-                'user': u,
-                'token': email_token_generator.make_token(u),
-            }
-        	body = loader.render_to_string('muster/email_verify_body.txt', context)
+			# Email subject *must not* contain newlines
+			#subject = ''.join(subject.splitlines())
+			context = {
+				'protocal': 'http',
+				'host': request.META.get('HTTP_HOST'),
+				'email': email,
+				'uid': urlsafe_base64_encode(force_bytes(u.pk)),
+				'user': u,
+				'token': email_token_generator.make_token(u),
+			}
+			body = loader.render_to_string('muster/email_verify_body.txt', context)
 
-        	send_mail('[NCLab]欢迎注册为NCLab用户.邮箱验证', body, settings.EMAIL_HOST_USER, [email], 
-        		fail_silently=False, html_message=body)
-        	return HttpResponsePermanentRedirect(reverse('muster:thank'))
+			send_mail('[NCLab]欢迎注册为NCLab用户.邮箱验证', body, settings.EMAIL_HOST_USER, [email], 
+				fail_silently=False, html_message=body)
+
+			return HttpResponsePermanentRedirect(reverse('muster:thank'))
 
 	else:
 		form = UserCreationForm()
