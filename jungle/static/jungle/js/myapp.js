@@ -18,12 +18,12 @@ $( document ).ready( function() {
             node.fadeTo(250, .6).css('zIndex', 1000);
             timer && clearTimeout(timer);
             timer = setTimeout(spin, Math.ceil(random(1000)));
-            //setInterval(spin, Math.ceil(random(10000)));
+            setInterval(spin, Math.ceil(random(10000)));
           }
      	);
     
     function spin() {
-        node.css('transform', 'rotate(0deg)');
+        node.css('transform', 'rotate(' + random(360) + 'deg)');
     }
 
 	// node.on('mouseover', function(event){
