@@ -51,7 +51,6 @@ def account_register_view(request, **args):
 		if form.is_valid():
 			username = form.cleaned_data['username']
 			email = form.cleaned_data['email']
-			print email
 			password = form.cleaned_data['password']
 			u = User.objects.create_user(username=username, password=password, email=email)
 			p = Person.objects.create(user=u, role=PTStatus)
