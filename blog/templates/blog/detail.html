@@ -1,6 +1,20 @@
 {% extends 'base/v0.1/base.html' %}
+{% load staticfiles %}
+
+{% block uikitjs %}
+<script src="{% static 'uikit/2.12.0/js/core/modal.min.js' %}"></script>
+<script src="{% static 'uikit/2.12.0/js/components/lightbox.min.js' %}"></script>
+{% endblock %}
 
 {% block content %}
+<div>
+<p><a class="uk-button" href="http://static.nclab.com.cn/video/HOC-Section-1.mp4" data-uk-lightbox="{group:'group2'}" title="教程一">教程一</a>
+<a class="uk-button" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'group2'}">MP4</a>
+<a class="uk-button" href="http://vimeo.com/1084537" data-uk-lightbox="{group:'group2'}">Vimeo</a>
+<a class="uk-button" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'group2'}">YouTube</a>
+</p>
+</div>
+<hr class="uk-article-divider">
 <!-- <p>{{ blog.title }}</p> -->
 <center><h1><strong>Courses Gallary</strong></h1></center>
 <div class="container">
