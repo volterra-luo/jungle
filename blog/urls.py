@@ -5,7 +5,7 @@ admin.autodiscover()
 
 from blog import views
 
-urlpatterns = patterns('',	
+urlpatterns = patterns('',
 	url(r'^tutorial/$', views.detail ),
 	url(r'^react/$', views.react_view ),
 	url(r'^$', views.index, name='index' ),

@@ -18,6 +18,9 @@ urlpatterns = patterns('',
     #url(r'^accounts/register/$', 'appetizer.views.account_create_view', {'template':'registration/register.html'}, name='create', ),
     #url(r'^accounts/', include('django.contrib.auth.urls')),
 
+
+    url(r'^zinnia/', include('zinnia.urls', namespace='zinnia')),
+    url(r'^comments/', include('django_comments.urls')),
     url(r'^blog/', include('blog.urls', namespace='blog')),
 
     # payment system
