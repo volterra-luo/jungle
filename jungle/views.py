@@ -17,3 +17,7 @@ def _render_template(request,page,**args):
 def home(request):
 	local_args = {}
 	return _render_template(request, 'jungle/index.html', **local_args)
+
+def status(request):
+	local_args = {}
+	return _render_template(request, 'jungle/status.html', **local_args)
