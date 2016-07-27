@@ -2,7 +2,9 @@
 
 {% load staticfiles %}
 {% block content %}
-<div id="c1" class="uk-width-medium-1-2 uk-container-center"></div>
+<div class="uk-width-2-3 uk-container-center">
+  <div id="c1"></div>
+</div>
 <script src="https://as.alipayobjects.com/g/datavis/g-plugin-map/1.1.0/index.js"></script>
     <script>
       $.getJSON("{% static 'jungle/geo/world_geo.json' %}", function(mapData) {
