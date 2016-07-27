@@ -24,8 +24,8 @@ def id_check(id):
 
 class Person(models.Model):
 	user = models.OneToOneField(User, related_name='person')
-	id_cn = models.CharField(max_length=18)
-	cellphone = models.CharField(max_length=11)
+	#id_cn = models.CharField(max_length=18)
+	#cellphone = models.CharField(max_length=11)
 	is_verified = models.BooleanField(default=False)
 	is_admitted = models.BooleanField(default=False)
 	role = models.CharField(default='P', max_length=1)
