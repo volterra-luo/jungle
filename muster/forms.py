@@ -204,7 +204,7 @@ class LoginForm(forms.Form):
 				else:
 					raise forms.ValidationError('Your account was disabled.')
 
-			raise forms.ValidationError('用户名与密码不匹配, 请重新输入.')
+			raise forms.ValidationError("用户名与密码不匹配, 请重新输入.")
 
 
 # class ReminderForm(forms.Form):

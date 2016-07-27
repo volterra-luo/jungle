@@ -1,4 +1,4 @@
-/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
  * Based on simplePagination - Copyright (c) 2012 Flavius Matis - http://flaviusmatis.github.com/simplePagination.js/ (MIT)
  */
@@ -6,17 +6,17 @@
 
     var component;
 
-    if (jQuery && jQuery.UIkit) {
-        component = addon(jQuery, jQuery.UIkit);
+    if (window.UIkit) {
+        component = addon(UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-pagination", ["uikit"], function(){
-            return component || addon(jQuery, jQuery.UIkit);
+            return component || addon(UIkit);
         });
     }
 
-})(function($, UI){
+})(function(UI){
 
     "use strict";
 
@@ -28,10 +28,25 @@
             pages          : 0,
             displayedPages : 3,
             edges          : 3,
-            currentPage    : 1,
+            currentPage    : 0,
             lblPrev        : false,
             lblNext        : false,
             onSelectPage   : function() {}
+        },
+
+        boot: function() {
+
+            // init code
+            UI.ready(function(context) {
+
+                UI.$("[data-uk-pagination]", context).each(function(){
+                    var ele = UI.$(this);
+
+                    if (!ele.data("pagination")) {
+                        UI.pagination(ele, UI.Utils.options(ele.attr("data-uk-pagination")));
+                    }
+                });
+            });
         },
 
         init: function() {
@@ -39,12 +54,12 @@
             var $this = this;
 
             this.pages         = this.options.pages ?  this.options.pages : Math.ceil(this.options.items / this.options.itemsOnPage) ? Math.ceil(this.options.items / this.options.itemsOnPage) : 1;
-            this.currentPage   = this.options.currentPage - 1;
+            this.currentPage   = this.options.currentPage;
             this.halfDisplayed = this.options.displayedPages / 2;
 
             this.on("click", "a[data-page]", function(e){
                 e.preventDefault();
-                $this.selectPage($(this).data("page"));
+                $this.selectPage(UI.$(this).data("page"));
             });
 
             this._render();
@@ -68,7 +83,7 @@
             this.render(pages);
 
             this.options.onSelectPage.apply(this, [pageIndex]);
-            this.trigger('uk.pagination.select', [pageIndex, this]);
+            this.trigger('select.uk.pagination', [pageIndex, this]);
         },
 
         _render: function() {
@@ -117,28 +132,15 @@
 
         _append: function(pageIndex, opts) {
 
-            var $this = this, item, link, options;
+            var item, options;
 
             pageIndex = pageIndex < 0 ? 0 : (pageIndex < this.pages ? pageIndex : this.pages - 1);
-            options   = $.extend({ text: pageIndex + 1 }, opts);
+            options   = UI.$.extend({ text: pageIndex + 1 }, opts);
 
-            item = (pageIndex == this.currentPage) ? '<li class="uk-active"><span>' + (options.text) + '</span></li>'
-                                                   : '<li><a href="#page-'+(pageIndex+1)+'" data-page="'+pageIndex+'">'+options.text+'</a></li>';
+            item = (pageIndex == this.currentPage) ? '<li class="uk-active"><span>' + (options.text) + '</span></li>' : '<li><a href="#page-'+(pageIndex+1)+'" data-page="'+pageIndex+'">'+options.text+'</a></li>';
 
             this.element.append(item);
         }
-    });
-
-    // init code
-    UI.ready(function(context) {
-
-        $("[data-uk-pagination]", context).each(function(){
-            var ele = $(this);
-
-            if (!ele.data("pagination")) {
-                var obj = UI.pagination(ele, UI.Utils.options(ele.attr("data-uk-pagination")));
-            }
-        });
     });
 
     return UI.pagination;

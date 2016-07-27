@@ -26,6 +26,7 @@ class Product(models.Model):
 	trade_no = models.CharField(
 		max_length=28, 
 		help_text='The transaction ID in alipay system',
+		default='0', 
 	)
 
 	course_id = models.IntegerField()
