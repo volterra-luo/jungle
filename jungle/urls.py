@@ -29,7 +29,6 @@ urlpatterns = patterns('',
 
     url(r'^credential/', include('credential.urls', namespace='certify')),
     url(r'^status/$', 'jungle.views.status', name='status'),
-    url(r'^resource/$', 'jungle.views.resource', name='resource'),
     url(r'^$', 'jungle.views.home', name='home'),
     # Examples:
     # url(r'^blog/', include('blog.urls')),

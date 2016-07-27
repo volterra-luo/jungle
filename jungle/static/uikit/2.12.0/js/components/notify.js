@@ -1,19 +1,19 @@
-/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (window.UIkit) {
-        component = addon(UIkit);
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-notify", ["uikit"], function(){
-            return component || addon(UIkit);
+            return component || addon(jQuery, jQuery.UIkit);
         });
     }
 
-})(function(UI){
+})(function($, UI){
 
     "use strict";
 
@@ -22,42 +22,39 @@
 
         notify     =  function(options){
 
-            if (UI.$.type(options) == 'string') {
+            if ($.type(options) == 'string') {
                 options = { message: options };
             }
 
             if (arguments[1]) {
-                options = UI.$.extend(options, UI.$.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
+                options = $.extend(options, $.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
             }
 
             return (new Message(options)).show();
         },
         closeAll  = function(group, instantly){
-
-            var id;
-
-            if (group) {
-                for(id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
+            if(group) {
+                for(var id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
             } else {
-                for(id in messages) { messages[id].close(instantly); }
+                for(var id in messages) { messages[id].close(instantly); }
             }
         };
 
     var Message = function(options){
 
-        this.options = UI.$.extend({}, Message.defaults, options);
+        var $this = this;
 
-        this.uuid    = UI.Utils.uid("notifymsg");
-        this.element = UI.$([
+        this.options = $.extend({}, Message.defaults, options);
+
+        this.uuid    = "ID"+(new Date().getTime())+"RAND"+(Math.ceil(Math.random() * 100000));
+        this.element = $([
 
             '<div class="uk-notify-message">',
                 '<a class="uk-close"></a>',
-                '<div></div>',
+                '<div>'+this.options.message+'</div>',
             '</div>'
 
         ].join('')).data("notifyMessage", this);
-
-        this.content(this.options.message);
 
         // status
         if (this.options.status) {
@@ -70,18 +67,14 @@
         messages[this.uuid] = this;
 
         if(!containers[this.options.pos]) {
-            containers[this.options.pos] = UI.$('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
-
-                var message = UI.$(this).data("notifyMessage");
-
-                message.element.trigger('manualclose.uk.notify', [message]);
-                message.close();
+            containers[this.options.pos] = $('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
+                $(this).data("notifyMessage").close();
             });
         }
     };
 
 
-    UI.$.extend(Message.prototype, {
+    $.extend(Message.prototype, {
 
         uuid: false,
         element: false,
@@ -124,19 +117,18 @@
                 finalize = function(){
                     $this.element.remove();
 
-                    if (!containers[$this.options.pos].children().length) {
+                    if(!containers[$this.options.pos].children().length) {
                         containers[$this.options.pos].hide();
                     }
 
                     $this.options.onClose.apply($this, []);
-                    $this.element.trigger('close.uk.notify', [$this]);
 
                     delete messages[$this.uuid];
                 };
 
-            if (this.timeout) clearTimeout(this.timeout);
+            if(this.timeout) clearTimeout(this.timeout);
 
-            if (instantly) {
+            if(instantly) {
                 finalize();
             } else {
                 this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight(), "margin-bottom":0}, function(){
@@ -160,7 +152,7 @@
 
         status: function(status) {
 
-            if (!status) {
+            if(!status) {
                 return this.currentstatus;
             }
 

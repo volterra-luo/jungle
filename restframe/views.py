@@ -8,7 +8,7 @@ from muster.models import Person
 from rest_framework import generics
 
 @api_view(['GET', 'POST'])
-def nclab_user(request, pk, format=None):
+def nclab_user(request, pk):
     try:
         user = User.objects.get(pk=pk)
     except User.DoesNotExist:
@@ -25,7 +25,6 @@ def nclab_user(request, pk, format=None):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """

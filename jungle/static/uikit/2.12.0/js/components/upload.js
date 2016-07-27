@@ -1,23 +1,24 @@
-/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (window.UIkit) {
-        component = addon(UIkit);
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-upload", ["uikit"], function(){
-            return component || addon(UIkit);
+            return component || addon(jQuery, jQuery.UIkit);
         });
     }
 
-})(function(UI){
+})(function($, UI){
 
     "use strict";
 
     UI.component('uploadSelect', {
+
 
         init: function() {
 
@@ -50,7 +51,7 @@
                     e.preventDefault();
 
                     $this.element.removeClass($this.options.dragoverClass);
-                    $this.element.trigger('dropped.uk.upload', [e.dataTransfer.files]);
+                    $this.element.trigger('uk.dropped', [e.dataTransfer.files]);
 
                     xhrupload(e.dataTransfer.files, $this.options);
                 }
@@ -94,7 +95,7 @@
     })();
 
     if (UI.support.ajaxupload){
-        UI.$.event.props.push("dataTransfer");
+        $.event.props.push("dataTransfer");
     }
 
     function xhrupload(files, settings) {
@@ -103,7 +104,7 @@
             return this;
         }
 
-        settings = UI.$.extend({}, xhrupload.defaults, settings);
+        settings = $.extend({}, xhrupload.defaults, settings);
 
         if (!files.length){
             return;
@@ -188,10 +189,6 @@
 
             xhr.open(settings.method, settings.action, true);
 
-            if (settings.type=="json") {
-                xhr.setRequestHeader("Accept", "application/json");
-            }
-
             xhr.onreadystatechange = function() {
 
                 settings.readystatechange(xhr);
@@ -202,7 +199,7 @@
 
                     if (settings.type=="json") {
                         try {
-                            response = UI.$.parseJSON(response);
+                            response = $.parseJSON(response);
                         } catch(e) {
                             response = false;
                         }

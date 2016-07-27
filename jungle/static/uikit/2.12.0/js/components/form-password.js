@@ -1,19 +1,19 @@
-/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (window.UIkit) {
-        component = addon(UIkit);
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-form-password", ["uikit"], function(){
-            return component || addon(UIkit);
+            return component || addon(jQuery, jQuery.UIkit);
         });
     }
 
-})(function(UI){
+})(function($, UI){
 
     "use strict";
 
@@ -22,22 +22,6 @@
         defaults: {
             "lblShow": "Show",
             "lblHide": "Hide"
-        },
-
-        boot: function() {
-            // init code
-            UI.$html.on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
-
-                var ele = UI.$(this);
-
-                if (!ele.data("formPassword")) {
-
-                    e.preventDefault();
-
-                    UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
-                    ele.trigger("click");
-                }
-            });
         },
 
         init: function() {
@@ -51,15 +35,27 @@
                 if($this.input.length) {
                     var type = $this.input.attr("type");
                     $this.input.attr("type", type=="text" ? "password":"text");
-                    $this.element.html($this.options[type=="text" ? "lblShow":"lblHide"]);
+                    $this.element.text($this.options[type=="text" ? "lblShow":"lblHide"]);
                 }
             });
 
             this.input = this.element.next("input").length ? this.element.next("input") : this.element.prev("input");
-            this.element.html(this.options[this.input.is("[type='password']") ? "lblShow":"lblHide"]);
-
+            this.element.text(this.options[this.input.is("[type='password']") ? "lblShow":"lblHide"]);
 
             this.element.data("formPassword", this);
+        }
+    });
+
+    // init code
+    UI.$html.on("click.formpassword.uikit", "[data-uk-form-password]", function(e) {
+
+        var ele = $(this);
+        if (!ele.data("formPassword")) {
+
+            e.preventDefault();
+
+            var obj = UI.formPassword(ele, UI.Utils.options(ele.attr("data-uk-form-password")));
+            ele.trigger("click");
         }
     });
 

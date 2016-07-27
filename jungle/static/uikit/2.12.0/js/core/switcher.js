@@ -1,5 +1,5 @@
-/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
-(function(UI) {
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+(function($, UI) {
 
     "use strict";
 
@@ -12,53 +12,32 @@
             toggle    : ">*",
             active    : 0,
             animation : false,
-            duration  : 200,
-            swiping   : true
+            duration  : 200
         },
 
         animating: false,
-
-        boot: function() {
-
-            // init code
-            UI.ready(function(context) {
-
-                UI.$("[data-uk-switcher]", context).each(function() {
-                    var switcher = UI.$(this);
-
-                    if (!switcher.data("switcher")) {
-                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
-                    }
-                });
-            });
-        },
 
         init: function() {
 
             var $this = this;
 
-            this.on("click.uikit.switcher", this.options.toggle, function(e) {
+            this.on("click", this.options.toggle, function(e) {
                 e.preventDefault();
                 $this.show(this);
             });
 
             if (this.options.connect) {
 
-                this.connect = UI.$(this.options.connect);
-
-                this.connect.find(".uk-active").removeClass(".uk-active");
+                this.connect = $(this.options.connect).find(".uk-active").removeClass(".uk-active").end();
 
                 // delegate switch commands within container content
                 if (this.connect.length) {
-
-                    // Init ARIA for connect
-                    this.connect.children().attr('aria-hidden', 'true');
 
                     this.connect.on("click", '[data-uk-switcher-item]', function(e) {
 
                         e.preventDefault();
 
-                        var item = UI.$(this).attr('data-uk-switcher-item');
+                        var item = $(this).data('ukSwitcherItem');
 
                         if ($this.index == item) return;
 
@@ -68,19 +47,9 @@
                                 $this.show($this.index + (item=='next' ? 1:-1));
                                 break;
                             default:
-                                $this.show(parseInt(item, 10));
+                                $this.show(item);
                         }
-                    })
-
-                    if (this.options.swiping) {
-
-                        this.connect.on('swipeRight swipeLeft', function(e) {
-                            e.preventDefault();
-                            if(!window.getSelection().toString()) {
-                                $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
-                            }
-                        });
-                    }
+                    });
                 }
 
                 var toggles = this.find(this.options.toggle),
@@ -89,20 +58,9 @@
                 if (active.length) {
                     this.show(active, false);
                 } else {
-
-                    if (this.options.active===false) return;
-
                     active = toggles.eq(this.options.active);
                     this.show(active.length ? active : toggles.eq(0), false);
                 }
-
-                // Init ARIA for toggles
-                toggles.not(active).attr('aria-expanded', 'false');
-                active.attr('aria-expanded', 'true');
-
-                this.on('changed.uk.dom', function() {
-                    $this.connect = UI.$($this.options.connect);
-                });
             }
 
         },
@@ -113,19 +71,10 @@
                 return;
             }
 
-            if (isNaN(tab)) {
-                tab = UI.$(tab);
-            } else {
-
-                var toggles = this.find(this.options.toggle);
-
-                tab = tab < 0 ? toggles.length-1 : tab;
-                tab = toggles.eq(toggles[tab] ? tab : 0);
-            }
+            tab = isNaN(tab) ? $(tab) : this.find(this.options.toggle).eq(tab);
 
             var $this     = this,
-                toggles   = this.find(this.options.toggle),
-                active    = UI.$(tab),
+                active    = tab,
                 animation = Animations[this.options.animation] || function(current, next) {
 
                     if (!$this.options.animation) {
@@ -144,17 +93,13 @@
                     return coreAnimation.apply($this, [anim, current, next]);
                 };
 
-            if (animate===false || !UI.support.animation) {
+            if (animate===false) {
                 animation = Animations.none;
             }
 
             if (active.hasClass("uk-disabled")) return;
 
-            // Update ARIA for Toggles
-            toggles.attr('aria-expanded', 'false');
-            active.attr('aria-expanded', 'true');
-
-            toggles.filter(".uk-active").removeClass("uk-active");
+            this.find(this.options.toggle).filter(".uk-active").removeClass("uk-active");
             active.addClass("uk-active");
 
             if (this.options.connect && this.connect.length) {
@@ -167,10 +112,10 @@
 
                 this.connect.each(function() {
 
-                    var container = UI.$(this),
-                        children  = UI.$(container.children()),
-                        current   = UI.$(children.filter('.uk-active')),
-                        next      = UI.$(children.eq($this.index));
+                    var container = $(this),
+                        children  = container.children(),
+                        current   = children.filter('.uk-active'),
+                        next      = children.eq($this.index);
 
                         $this.animating = true;
 
@@ -178,11 +123,6 @@
 
                             current.removeClass("uk-active");
                             next.addClass("uk-active");
-
-                            // Update ARIA for connect
-                            current.attr('aria-hidden', 'true');
-                            next.attr('aria-hidden', 'false');
-
                             UI.Utils.checkDisplay(next, true);
 
                             $this.animating = false;
@@ -190,14 +130,14 @@
                 });
             }
 
-            this.trigger("show.uk.switcher", [active]);
+            this.trigger("uk.switcher.show", [active]);
         }
     });
 
     Animations = {
 
         'none': function() {
-            var d = UI.$.Deferred();
+            var d = $.Deferred();
             d.resolve();
             return d.promise();
         },
@@ -235,7 +175,7 @@
 
         'slide-horizontal': function(current, next, dir) {
 
-            var anim = ['uk-animation-slide-right', 'uk-animation-slide-left'];
+            var anim = ['uk-animation-slide-left', 'uk-animation-slide-right'];
 
             if (current && current.index() > next.index()) {
                 anim.reverse();
@@ -252,13 +192,26 @@
     UI.switcher.animations = Animations;
 
 
+    // init code
+    UI.ready(function(context) {
+
+        $("[data-uk-switcher]", context).each(function() {
+            var switcher = $(this);
+
+            if (!switcher.data("switcher")) {
+                var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
+            }
+        });
+    });
+
+
     // helpers
 
     function coreAnimation(cls, current, next) {
 
-        var d = UI.$.Deferred(), clsIn = cls, clsOut = cls, release;
+        var d = $.Deferred(), clsIn = cls, clsOut = cls, release;
 
-        if (next[0]===current[0]) {
+        if(next[0]===current[0]) {
             d.resolve();
             return d.promise();
         }
@@ -301,4 +254,4 @@
         return d.promise();
     }
 
-})(UIkit);
+})(jQuery, jQuery.UIkit);

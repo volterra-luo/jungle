@@ -1,19 +1,19 @@
-/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (window.UIkit) {
-        component = addon(UIkit);
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-autocomplete", ["uikit"], function(){
-            return component || addon(UIkit);
+            return component || addon(jQuery, jQuery.UIkit);
         });
     }
 
-})(function(UI){
+})(function($, UI){
 
     "use strict";
 
@@ -42,24 +42,6 @@
         value    : null,
         selected : null,
 
-        boot: function() {
-
-            // init code
-            UI.$html.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
-
-                var ele = UI.$(this);
-
-                if (!ele.data("autocomplete")) {
-                    UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
-                }
-            });
-
-            // register outer click for autocompletes
-            UI.$html.on("click.autocomplete.uikit", function(e) {
-                if (active && e.target!=active.input[0]) active.hide();
-            });
-        },
-
         init: function() {
 
             var $this   = this,
@@ -78,14 +60,12 @@
             this.input    = this.find("input:first").attr("autocomplete", "off");
 
             if (!this.dropdown.length) {
-               this.dropdown = UI.$('<div class="uk-dropdown"></div>').appendTo(this.element);
+               this.dropdown = $('<div class="uk-dropdown"></div>').appendTo(this.element);
             }
 
             if (this.options.flipDropdown) {
                 this.dropdown.addClass('uk-dropdown-flip');
             }
-
-            this.dropdown.attr('aria-expanded', 'false');
 
             this.input.on({
                 "keydown": function(e) {
@@ -127,7 +107,7 @@
             });
 
             this.dropdown.on("mouseover", ".uk-autocomplete-results > *", function(){
-                $this.pick(UI.$(this));
+                $this.pick($(this));
             });
 
             this.triggercomplete = trigger;
@@ -151,7 +131,7 @@
         pick: function(item, scrollinview) {
 
             var $this    = this,
-                items    = UI.$(this.dropdown.find('.uk-autocomplete-results').children(':not(.'+this.options.skipClass+')')),
+                items    = this.dropdown.find('.uk-autocomplete-results').children(':not(.'+this.options.skipClass+')'),
                 selected = false;
 
             if (typeof item !== "string" && !item.hasClass(this.options.skipClass)) {
@@ -170,8 +150,6 @@
                 } else {
                     selected = items[(item == 'next') ? 'first' : 'last']();
                 }
-
-                selected = UI.$(selected);
             }
 
             if (selected && selected.length) {
@@ -199,10 +177,10 @@
 
             var data = this.selected.data();
 
-            this.trigger("selectitem.uk.autocomplete", [data, this]);
+            this.trigger("uk.autocomplete.select", [data, this]);
 
             if (data.value) {
-                this.input.val(data.value).trigger('change');
+                this.input.val(data.value);
             }
 
             this.hide();
@@ -213,15 +191,7 @@
             this.visible = true;
             this.element.addClass("uk-open");
 
-            if (active && active!==this) {
-                active.hide();
-            }
-
             active = this;
-
-            // Update aria
-            this.dropdown.attr('aria-expanded', 'true');
-
             return this;
         },
 
@@ -233,9 +203,6 @@
             if (active === this) {
                 active = false;
             }
-
-            // Update aria
-            this.dropdown.attr('aria-expanded', 'false');
 
             return this;
         },
@@ -288,7 +255,7 @@
 
                         params[this.options.param] = this.value;
 
-                        UI.$.ajax({
+                        $.ajax({
                             url: this.options.source,
                             data: params,
                             type: this.options.method,
@@ -310,6 +277,8 @@
 
         render: function(data) {
 
+            var $this = this;
+
             this.dropdown.empty();
 
             this.selected = false;
@@ -323,11 +292,25 @@
                 this.dropdown.append(this.template({"items":data}));
                 this.show();
 
-                this.trigger('show.uk.autocomplete');
+                this.trigger('uk.autocomplete.show');
             }
 
             return this;
         }
+    });
+
+    // init code
+    UI.$html.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
+
+        var ele = $(this);
+        if (!ele.data("autocomplete")) {
+            var obj = UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
+        }
+    });
+
+    // register outer click for autocompletes
+    UI.$html.on("click.autocomplete.uikit", function(e){
+        if (active && e.target!=active.input[0]) active.hide();
     });
 
     return UI.autocomplete;

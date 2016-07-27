@@ -1,36 +1,36 @@
-/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (window.UIkit) {
-        component = addon(UIkit);
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-slideshow-fx", ["uikit"], function() {
-            return component || addon(UIkit);
+            return component || addon(jQuery, jQuery.UIkit);
         });
     }
 
-})(function(UI) {
+})(function($, UI) {
 
     "use strict";
 
     var Animations = UI.slideshow.animations;
 
-    UI.$.extend(UI.slideshow.animations, {
+    $.extend(UI.slideshow.animations, {
         'slice': function(current, next, dir, fromfx) {
 
             if (!current.data('cover')) {
                 return Animations.fade.apply(this, arguments);
             }
 
-            var d = UI.$.Deferred();
+            var d = $.Deferred();
 
             var sliceWidth = Math.ceil(this.element.width() / this.options.slices),
                 bgimage    = next.data('cover').css('background-image'),
-                ghost      = UI.$('<li></li>').css({
+                ghost      = $('<li></li>').css({
                     top    : 0,
                     left   : 0,
                     width  : this.container.width(),
@@ -60,7 +60,7 @@
                     clipfrom = ('rect('+ghostHeight+'px, '+(width*(i+1))+'px, '+ghostHeight+'px, '+(sliceWidth*i)+'px)');
                 }
 
-                bar = UI.$('<div class="uk-cover-background"></div>').css({
+                bar = $('<div class="uk-cover-background"></div>').css({
                     'position'           : 'absolute',
                     'top'                : 0,
                     'left'               : 0,
@@ -87,7 +87,7 @@
             ghost.width();
 
             ghost.children().each(function() {
-                var bar = UI.$(this);
+                var bar = $(this);
 
                 bar.css({
                     'clip': bar.data('clip'),
@@ -116,11 +116,11 @@
                 return Animations.fade.apply(this, arguments);
             }
 
-            var d = UI.$.Deferred();
+            var d = $.Deferred();
 
             var sliceWidth = Math.ceil(this.element.width() / this.options.slices),
                 bgimage    = next.data('cover').css('background-image'),
-                ghost      = UI.$('<li></li>').css({
+                ghost      = $('<li></li>').css({
                     width  : next.width(),
                     height : next.height(),
                     opacity: 1,
@@ -132,7 +132,9 @@
 
             for (var i = 0; i < this.options.slices; i++) {
 
-                bar = UI.$('<div class="uk-cover-background"></div>').css({
+                var width = (i == this.options.slices-1) ? (ghostWidth - (sliceWidth*i)) : sliceWidth;
+
+                bar = $('<div class="uk-cover-background"></div>').css({
                     'position'           : 'absolute',
                     'top'                : 0,
                     'left'               : 0,
@@ -171,14 +173,14 @@
                 return Animations.fade.apply(this, arguments);
             }
 
-            var d = UI.$.Deferred(), $this = this;
+            var d = $.Deferred(), $this = this;
 
             var boxCols   = Math.round(this.options.slices/2),
                 boxWidth  = Math.round(next.width()/boxCols),
                 boxRows   = Math.round(next.height()/boxWidth),
                 boxHeight = Math.round(next.height()/boxRows)+1,
                 bgimage   = next.data('cover').css('background-image'),
-                ghost     = UI.$('<li></li>').css({
+                ghost     = $('<li></li>').css({
                     width   : this.container.width(),
                     height  : this.container.height(),
                     opacity : 1,
@@ -201,7 +203,7 @@
                         (boxWidth  * cols)       +'px'  // left
                     ];
 
-                    box = UI.$('<div class="uk-cover-background"></div>').css({
+                    box = $('<div class="uk-cover-background"></div>').css({
                         'position'          : 'absolute',
                         'top'               : 0,
                         'left'              : 0,
@@ -223,7 +225,7 @@
             var boxes = shuffle(ghost.children());
 
             boxes.each(function(i) {
-                UI.$(this).css({
+                $(this).css({
                     'transition': 'all '+$this.options.duration+'ms ease-in-out '+(50+i*25)+'ms',
                     '-webkit-transition': 'all '+$this.options.duration+'ms ease-in-out '+(50+i*25)+'ms'
                 });
@@ -245,14 +247,14 @@
                 return Animations.fade.apply(this, arguments);
             }
 
-            var d = UI.$.Deferred();
+            var d = $.Deferred();
 
             var boxCols   = Math.round(this.options.slices/2),
                 boxWidth  = Math.round(next.width()/boxCols),
                 boxRows   = Math.round(next.height()/boxWidth),
                 boxHeight = Math.round(next.height()/boxRows)+1,
                 bgimage   = next.data('cover').css('background-image'),
-                ghost     = UI.$('<li></li>').css({
+                ghost     = $('<li></li>').css({
                     width   : next.width(),
                     height  : next.height(),
                     opacity : 1,
@@ -260,11 +262,11 @@
                 }),
                 ghostWidth  = next.width(),
                 ghostHeight = next.height(),
-                box, rect, width, cols;
+                box, rect, width;
 
             for (var rows = 0; rows < boxRows; rows++) {
 
-                for (cols = 0; cols < boxCols; cols++) {
+                for (var cols = 0; cols < boxCols; cols++) {
 
                     width  = (cols == boxCols-1) ? (boxWidth + 2) : boxWidth;
 
@@ -275,7 +277,7 @@
                         (boxWidth  * cols)       +'px'  // left
                     ];
 
-                    box = UI.$('<div class="uk-cover-background"></div>').css({
+                    box = $('<div class="uk-cover-background"></div>').css({
                         'position'          : 'absolute',
                         'top'               : 0,
                         'left'              : 0,
@@ -295,7 +297,7 @@
 
             this.container.append(ghost);
 
-            var rowIndex = 0, colIndex = 0, timeBuff = 0, box2Darr = [[]], boxes = ghost.children(), prevCol;
+            var rowIndex = 0, colIndex = 0, timeBuff = 0, box2Darr = [[]], boxes = ghost.children();
 
             if (fromfx == 'boxes-reverse') {
                 boxes = [].reverse.apply(boxes);
@@ -303,7 +305,7 @@
 
             boxes.each(function() {
 
-                box2Darr[rowIndex][colIndex] = UI.$(this);
+                box2Darr[rowIndex][colIndex] = $(this);
                 colIndex++;
 
                 if(colIndex == boxCols) {
@@ -313,7 +315,7 @@
                 }
             });
 
-            for (cols = 0, prevCol = 0; cols < (boxCols * boxRows); cols++) {
+            for (var cols = 0, prevCol = 0; cols < (boxCols * boxRows); cols++) {
 
                 prevCol = cols;
 
@@ -359,7 +361,7 @@
             if (!animations[this.fxIndex]) this.fxIndex = 0;
 
             return Animations[animations[this.fxIndex]].apply(this, arguments);
-        }
+        },
     });
 
 

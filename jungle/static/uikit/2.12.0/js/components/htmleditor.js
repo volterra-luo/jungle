@@ -1,19 +1,19 @@
-/*! UIkit 2.22.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.12.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
 
-    if (window.UIkit) {
-        component = addon(UIkit);
+    if (jQuery && jQuery.UIkit) {
+        component = addon(jQuery, jQuery.UIkit);
     }
 
     if (typeof define == "function" && define.amd) {
         define("uikit-htmleditor", ["uikit"], function(){
-            return component || addon(UIkit);
+            return component || addon(jQuery, jQuery.UIkit);
         });
     }
 
-})(function(UI) {
+})(function($, UI) {
 
     "use strict";
 
@@ -28,27 +28,12 @@
             autocomplete : true,
             height       : 500,
             maxsplitsize : 1000,
+            markedOptions: { gfm: true, tables: true, breaks: true, pedantic: true, sanitize: false, smartLists: true, smartypants: false, langPrefix: 'lang-'},
             codemirror   : { mode: 'htmlmixed', lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4, indentWithTabs: false, tabSize: 4, hintOptions: {completionSingle:false} },
             toolbar      : [ 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl', 'listOl' ],
             lblPreview   : 'Preview',
             lblCodeview  : 'HTML',
             lblMarkedview: 'Markdown'
-        },
-
-        boot: function() {
-
-            // init code
-            UI.ready(function(context) {
-
-                UI.$('textarea[data-uk-htmleditor]', context).each(function() {
-
-                    var editor = UI.$(this);
-
-                    if (!editor.data('htmleditor')) {
-                        UI.htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
-                    }
-                });
-            });
         },
 
         init: function() {
@@ -58,10 +43,10 @@
             this.CodeMirror = this.options.CodeMirror || CodeMirror;
             this.buttons    = {};
 
-            tpl = tpl.replace(/\{:lblPreview}/g, this.options.lblPreview);
-            tpl = tpl.replace(/\{:lblCodeview}/g, this.options.lblCodeview);
+            tpl = tpl.replace(/\{:lblPreview\}/g, this.options.lblPreview);
+            tpl = tpl.replace(/\{:lblCodeview\}/g, this.options.lblCodeview);
 
-            this.htmleditor = UI.$(tpl);
+            this.htmleditor = $(tpl);
             this.content    = this.htmleditor.find('.uk-htmleditor-content');
             this.toolbar    = this.htmleditor.find('.uk-htmleditor-toolbar');
             this.preview    = this.htmleditor.find('.uk-htmleditor-preview').children().eq(0);
@@ -71,34 +56,31 @@
             this.editor = this.CodeMirror.fromTextArea(this.element[0], this.options.codemirror);
             this.editor.htmleditor = this;
             this.editor.on('change', UI.Utils.debounce(function() { $this.render(); }, 150));
-            this.editor.on('change', function() {
-                $this.editor.save();
-                $this.element.trigger('input');
-            });
+            this.editor.on('change', function() { $this.editor.save(); });
             this.code.find('.CodeMirror').css('height', this.options.height);
 
             // iframe mode?
             if (this.options.iframe) {
 
-                this.iframe = UI.$('<iframe class="uk-htmleditor-iframe" frameborder="0" scrolling="auto" height="100" width="100%"></iframe>');
+                this.iframe = $('<iframe class="uk-htmleditor-iframe" frameborder="0" scrolling="auto" height="100" width="100%"></iframe>');
                 this.preview.append(this.iframe);
 
                 // must open and close document object to start using it!
                 this.iframe[0].contentWindow.document.open();
                 this.iframe[0].contentWindow.document.close();
 
-                this.preview.container = UI.$(this.iframe[0].contentWindow.document).find('body');
+                this.preview.container = $(this.iframe[0].contentWindow.document).find('body');
 
                 // append custom stylesheet
                 if (typeof(this.options.iframe) === 'string') {
-                    this.preview.container.parent().append('<link rel="stylesheet" href="'+this.options.iframe+'">');
+                   this.preview.container.parent().append('<link rel="stylesheet" href="'+this.options.iframe+'">');
                 }
 
             } else {
                 this.preview.container = this.preview;
             }
 
-            UI.$win.on('resize load', UI.Utils.debounce(function() { $this.fit(); }, 200));
+            UI.$win.on('resize', UI.Utils.debounce(function() { $this.fit(); }, 200));
 
             var previewContainer = this.iframe ? this.preview.container:$this.preview.parent(),
                 codeContent      = this.code.find('.CodeMirror-sizer'),
@@ -107,13 +89,13 @@
                     if ($this.htmleditor.attr('data-mode') == 'tab') return;
 
                     // calc position
-                    var codeHeight      = codeContent.height() - codeScroll.height(),
-                        previewHeight   = previewContainer[0].scrollHeight - ($this.iframe ? $this.iframe.height() : previewContainer.height()),
-                        ratio           = previewHeight / codeHeight,
-                        previewPosition = codeScroll.scrollTop() * ratio;
+                    var codeHeight       = codeContent.height() - codeScroll.height(),
+                        previewHeight    = previewContainer[0].scrollHeight - ($this.iframe ? $this.iframe.height() : previewContainer.height()),
+                        ratio            = previewHeight / codeHeight,
+                        previewPostition = codeScroll.scrollTop() * ratio;
 
                     // apply new scroll
-                    previewContainer.scrollTop(previewPosition);
+                    previewContainer.scrollTop(previewPostition);
 
                 }, 10));
 
@@ -125,7 +107,7 @@
 
                     $this.htmleditor.find('.uk-htmleditor-button-code, .uk-htmleditor-button-preview').removeClass('uk-active').filter(this).addClass('uk-active');
 
-                    $this.activetab = UI.$(this).hasClass('uk-htmleditor-button-code') ? 'code' : 'preview';
+                    $this.activetab = $(this).hasClass('uk-htmleditor-button-code') ? 'code' : 'preview';
                     $this.htmleditor.attr('data-active-tab', $this.activetab);
                     $this.editor.refresh();
                 }
@@ -136,7 +118,7 @@
 
                 if (!$this.code.is(':visible')) return;
 
-                $this.trigger('action.' + UI.$(this).data('htmleditor-button'), [$this.editor]);
+                $this.trigger('action.' + $(this).data('htmleditor-button'), [$this.editor]);
             });
 
             this.preview.parent().css('height', this.code.height());
@@ -160,12 +142,12 @@
 
             this.debouncedRedraw = UI.Utils.debounce(function () { $this.redraw(); }, 5);
 
-            this.on('init.uk.component', function() {
-                $this.debouncedRedraw();
+            this.on('uk.component.init', function() {
+                $this.redraw();
             });
 
-            this.element.attr('data-uk-check-display', 1).on('display.uk.check', function(e) {
-                if (this.htmleditor.is(":visible")) this.fit();
+            this.element.attr('data-uk-check-display', 1).on('uk.check.display', function(e) {
+                if(this.htmleditor.is(":visible")) this.fit();
             }.bind(this));
 
             editors.push(this);
@@ -176,12 +158,12 @@
         },
 
         addButtons: function(buttons) {
-            UI.$.extend(this.buttons, buttons);
+            $.extend(this.buttons, buttons);
         },
 
         replaceInPreview: function(regexp, callback) {
 
-            var editor = this.editor, results = [], value = editor.getValue(), offset = -1, index = 0;
+            var editor = this.editor, results = [], value = editor.getValue(), offset = -1;
 
             this.currentvalue = this.currentvalue.replace(regexp, function() {
 
@@ -200,19 +182,17 @@
                             return cursor.ch >= match.from.ch && cursor.ch < match.to.ch;
                         }
 
-                        return  (cursor.line === match.from.line && cursor.ch   >= match.from.ch) ||
-                                (cursor.line >   match.from.line && cursor.line <  match.to.line) ||
-                                (cursor.line === match.to.line   && cursor.ch   <  match.to.ch);
+                        return  (cursor.line === match.from.line && cursor.ch   >= match.from.ch)
+                            || (cursor.line >   match.from.line && cursor.line <  match.to.line)
+                            || (cursor.line === match.to.line   && cursor.ch   <  match.to.ch);
                     }
                 };
 
-                var result = callback(match, index);
+                var result = callback(match);
 
-                if (!result) {
+                if (result == false) {
                     return arguments[0];
                 }
-
-                index++;
 
                 results.push(match);
                 return result;
@@ -307,7 +287,7 @@
 
         addShortcut: function(name, callback) {
             var map = {};
-            if (!UI.$.isArray(name)) {
+            if (!$.isArray(name)) {
                 name = [name];
             }
 
@@ -457,7 +437,7 @@
                     cm.setCursor({ line: posend.line, ch: cm.getLine(posend.line).length });
                     cm.focus();
                 }
-            };
+            }
 
             editor.on('action.listUl', function() {
                 listfn();
@@ -510,12 +490,14 @@
 
         init: function(editor) {
 
-            var parser = editor.options.mdparser || marked || null;
+            var parser = editor.options.marked || marked;
 
             if (!parser) return;
 
+            parser.setOptions(editor.options.markedOptions);
+
             if (editor.options.markdown) {
-                enableMarkdown();
+                enableMarkdown()
             }
 
             addAction('bold', '**$1**');
@@ -584,10 +566,10 @@
                 }
             });
 
-            UI.$.extend(editor, {
+            $.extend(editor, {
 
                 enableMarkdown: function() {
-                    enableMarkdown();
+                    enableMarkdown()
                     this.render();
                 },
                 disableMarkdown: function() {
@@ -617,6 +599,18 @@
                 });
             }
         }
+    });
+
+    // init code
+    UI.ready(function(context) {
+
+        $('textarea[data-uk-htmleditor]', context).each(function() {
+            var editor = $(this), obj;
+
+            if (!editor.data('htmleditor')) {
+                obj = UI.htmleditor(editor, UI.Utils.options(editor.attr('data-uk-htmleditor')));
+            }
+        });
     });
 
     return UI.htmleditor;
