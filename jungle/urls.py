@@ -22,11 +22,13 @@ urlpatterns = patterns('',
     url(r'^zinnia/', include('zinnia.urls', namespace='zinnia')),
     url(r'^comments/', include('django_comments.urls')),
     url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^fun/', include('fun.urls', namespace='fun')),
 
     # payment system
     url(r'^alipay/', include('alipay.urls', namespace='alipay')),
 
     url(r'^credential/', include('credential.urls', namespace='certify')),
+    url(r'^status/$', 'jungle.views.status', name='status'),
     url(r'^$', 'jungle.views.home', name='home'),
     # Examples:
     # url(r'^blog/', include('blog.urls')),

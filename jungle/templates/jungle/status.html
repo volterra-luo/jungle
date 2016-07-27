@@ -1,0 +1,42 @@
+{% extends BASE_TMP %}
+
+{% load staticfiles %}
+{% block content %}
+<div class="uk-width-2-3 uk-container-center">
+  <div id="c1"></div>
+</div>
+<script src="https://as.alipayobjects.com/g/datavis/g-plugin-map/1.1.0/index.js"></script>
+    <script>
+      $.getJSON("{% static 'jungle/geo/world_geo.json' %}", function(mapData) {
+        $.getJSON("{% static 'jungle/geo/usa_airport.json' %}", function(data) {
+          var Stat = G2.Stat;
+          var chart = new G2.Chart({
+            id: 'c1',
+            width: 1000,
+            height: 500,
+            plotCfg: {
+              margin: [40, 140]
+            }
+          });
+          chart.source(data);
+          chart.tooltip(false);
+          var gmap = new G2.Plugin.GMap({
+            chart: chart,
+            mapData: mapData,
+            style: {
+              stroke: '#fff',
+              fill: '#ddd'
+            }
+          }).draw();
+          chart.point().position(Stat.map.location('long*lant')).shape('circle').size(0.5).color('#31a354');
+          chart.render();
+        });
+      });
+    </script>
+{% endblock %}
+
+{% block reactjs %}
+<script src="https://a.alipayobjects.com/jquery/jquery/1.11.1/jquery.js"></script>
+<script src="https://a.alipayobjects.com/alipay-request/3.0.3/index.js"></script>
+<script src="https://as.alipayobjects.com/g/datavis/g2/1.2.5/index.js"></script>
+{% endblock %}
