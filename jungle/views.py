@@ -53,13 +53,11 @@ def gallery_karel(request):
 		'e539dc3441194386aa048bacca2bf0bb',
 		'2847066647514f63b5f038e337b6c542'
 	]
-	demo_urls = [ 'https://desktop.nclab.com/viewer/' + s for s in tmp]
-	demo_list = ['img/gallery/karel/' + str(i+1) + '.png' for i in range(13)]
-	demo_list = map(None, demo_list,demo_urls)
+	code_list = [ 'https://desktop.nclab.com/viewer/' + s for s in tmp]
 	manual_list = [ 'https://desktop.nclab.com/viewer/' + s for s in tmp2]
 	local_args = { 
-		'demo_list': demo_list,
-		'manual_list':manual_list
+		'code_list':  code_list,
+		'manual_list': manual_list
 	}
 	return _render_template(request, 'jungle/gallery/karel.html', **local_args)
 
