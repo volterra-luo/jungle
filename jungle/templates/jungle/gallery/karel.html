@@ -16,10 +16,10 @@
 </div>
 <hr class="uk-grid-divider">
 <div class="uk-grid uk-grid-width-1-5" data-uk-grid-margin>
-	{% for pic, demo_url in demo_list %}
+	{% for code_url in code_list %}
   		<div>
-  			<a href="{{ demo_url }}" target="_blank">
-    			<img src="{% static pic %}"></img>
+  			<a href="{{ code_url }}" target="_blank">
+    			<img src="http://images.nclab.com.cn/img/karel/{{ forloop.counter }}.png"></img>
   			</a>
 		</div>
 	{% endfor %}
