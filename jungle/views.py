@@ -62,7 +62,33 @@ def gallery_karel(request):
 	return _render_template(request, 'jungle/gallery/karel.html', **local_args)
 
 def gallery_3d(request):
-	pass
+	tmp = [
+		'6db46bac4c8e4cd5b4008d92e57a02e4',
+		'ca6d9f3c842542c999e17f7a3f22eb1f',
+		'137e0da11691498193e851ce435fa6e1',
+		'dc93bb63bf2945d4abd61a6730386e98',
+		'adf5f28abe334346bd76bb60a9e299ad',
+		'23904f0500cc45ea8dbd3fbfff3dead0',
+		'e68f18f086cc4e01a91c941771f7d1f2',
+		'1dfae748bdb54bd19bb81f8a7411a96b',
+		'd382ad0746bd4ac9a425e156c299b6b4',
+		'55d3896077e24290bceb675de5d2cc31',
+		'0e91c3750fe94641b25deba81e9dfe1f',
+		'0299e38c09364d4ea99ceae5d4ff4bfb',
+		'5791ba5ee781446ab24f126c01da7819',
+		'02f7a24e488d4140a153e8a38c853a2d',
+		'5f1858c1bb4d420085e742d3226ae88a',
+		'0670af75d7214998aa49f7539829bb88',
+		'3e83ee4114a642bc924d5f795d07d825',
+		'888b7fa5fd754db88a74e978eb63d7c2',
+		'2e2feca776f549cc84088ebffab8aba2',
+		'0aefa10b6e7a4a18abe0a744ecb3f9e6'
+	]
+	code_list = [ 'https://desktop.nclab.com/viewer/' + s for s in tmp]
+	local_args = {
+		'code_list':  code_list,
+	}
+	return _render_template(request, 'jungle/gallery/3d.html', **local_args)
 
 def gallery_turtle(request):
 	pass
