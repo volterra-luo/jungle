@@ -30,5 +30,35 @@ $( document ).ready( function() {
 	// 	console.log(random(10));
 	// });
 
-	function random(x) { return Math.random() * x };
+    function random(x) { return Math.random() * x };
+
+    setInterval(changebitadrress, 3000);
+    
+
+    function changebitadrress() { 
+      var s = $("#bitcoin-address").html();
+      $("#bitcoin-address").html(s.changeCode());
+    };
+    
+    
+    String.prototype.changeCode = function() {
+      if (this.length === 0) return '';
+      var l = shuffle(this.trim().split(''));
+      return l.join('');
+    };
+
+    function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    };
 });
