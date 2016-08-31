@@ -24,6 +24,9 @@ urlpatterns = patterns('',
     url(r'^blog/', include('blog.urls', namespace='blog')),
     url(r'^fun/', include('fun.urls', namespace='fun')),
 
+    # vedio system
+    url(r'^vod/', include('vedio.urls',namespace='vod')),
+
     # payment system
     url(r'^alipay/', include('alipay.urls', namespace='alipay')),
 
